@@ -1,0 +1,210 @@
+' Gambas class file
+
+  Export 
+  
+  Event Change(Num As Integer)
+  Public NOB As Integer = 10
+  Public Current As Integer = 1
+  Public MaxButt As Integer = 5
+  Public Initialized As Boolean
+  Public FButt As ToolButton
+  Public BButt As ToolButton
+  
+Public Sub Form_Open()
+  Pager()
+End
+
+Public Sub Pager()
+
+  Dim NButt As ToggleButton
+  Dim i As Integer
+  
+  Initialized = False
+  
+  If MaxButt Mod 2 = 0 Then 
+    MaxButt = MaxButt - 1 
+  Endif
+  
+  PagerPanel.Children.Clear
+  
+  BButt = New ToolButton(PagerPanel) As "BackButton"
+  BButt.W = 36
+  BButt.H = 36
+  BButt.Picture = Picture.Load("icon:/medium/previous")
+  
+  Dim Starter, Ib, Mb As Integer
+  Dim PFirst, PLast As Boolean
+  
+  If MaxButt < 7 Then
+    MaxButt = 7
+  Endif
+  If MaxButt = 7 Then 
+    Ib = 1
+  Else 
+    Ib = 2
+  Endif
+  
+  Mb = MaxButt - (2 * Ib) - 2
+  
+
+  
+  If NOB > MaxButt Then
+    
+    If Current < MaxButt / 2 + 1 Then
+      PFirst = False
+    Else 
+      PFirst = True  
+    Endif
+    If Current > NOB - MaxButt / 2 - 1 Then
+      PLast = False
+    Else 
+      PLast = True
+    Endif
+    
+   
+    
+    For i = 1 To Ib Step 1
+      NButt = New ToggleButton(PagerPanel) As "NumberButton"
+      NButt.W = 36
+      NButt.H = 36
+      NButt.Border = False
+      NButt.Radio = True
+      NButt.Text = i
+      If i = Current Then
+        NButt.Value = True
+      Endif
+    Next
+    
+    If PFirst Then 
+      NButt = New ToggleButton(PagerPanel) As "NumberButton"
+      NButt.W = 36
+      NButt.H = 36
+      NButt.Border = False
+      NButt.Radio = True
+      NButt.Text = "..."
+      NButt.Enabled = False
+    Else 
+      NButt = New ToggleButton(PagerPanel) As "NumberButton"
+      NButt.W = 36
+      NButt.H = 36
+      NButt.Border = False
+      NButt.Radio = True
+      NButt.Text = Ib + 1
+      If Ib + 1 = Current Then
+        NButt.Value = True
+      Endif
+    Endif
+
+    If Current <= (MaxButt - 1) / 2 Then
+      ' Print Current & "er mindre end eller lig" & ((MaxButt - 1) / 2)
+      Starter = Ib + 2
+    Else If Current >= NOB - ((MaxButt - 1) / 2) + 1 Then 
+      ' Print Current & " er større end eller lig " & ((NOB - (MaxButt - 1) / 2) + 1)
+      Starter = NOB - MaxButt + Ib + 2
+    Else 
+      ' Print Current & "er i midten"
+      Starter = Current - (Mb / 2) + 1
+    Endif
+    ' Print "Starter: " & Starter
+    For i = Starter To Starter + Mb - 1
+      NButt = New ToggleButton(PagerPanel) As "NumberButton"
+      NButt.W = 36
+      NButt.H = 36
+      NButt.Border = False
+      NButt.Radio = True
+      NButt.Text = i
+      If i = Current Then
+        NButt.Value = True
+      Endif
+    Next
+    If PLast Then 
+      NButt = New ToggleButton(PagerPanel) As "NumberButton"
+      NButt.W = 36
+      NButt.H = 36
+      NButt.Border = False
+      NButt.Radio = True
+      NButt.Text = "..."
+      NButt.Enabled = False
+    Else 
+      NButt = New ToggleButton(PagerPanel) As "NumberButton"
+      NButt.W = 36
+      NButt.H = 36
+      NButt.Border = False
+      NButt.Radio = True
+      NButt.Text = NOB - Ib
+      If NOB - Ib = Current Then
+        NButt.Value = True
+      Endif
+    Endif
+    For i = NOB - Ib + 1 To NOB Step 1
+      NButt = New ToggleButton(PagerPanel) As "NumberButton"
+      NButt.W = 36
+      NButt.H = 36
+      NButt.Border = False
+      NButt.Radio = True
+      NButt.Text = i
+      If i = Current Then
+        NButt.Value = True
+      Endif
+    Next
+  
+  Else 
+    For i = 1 To NOB Step 1
+    NButt = New ToggleButton(PagerPanel) As "NumberButton"
+    NButt.W = 36
+    NButt.H = 36
+    NButt.Border = False
+    NButt.Radio = True
+    NButt.Text = i
+    If i = Current Then
+      NButt.Value = True
+    Endif
+  Next
+  Endif
+  
+  FButt = New ToolButton(PagerPanel) As "NextButton"
+  FButt.W = 36
+  FButt.H = 36
+  FButt.Picture = Picture.Load("icon:/medium/next")
+
+  If Current >= NOB Then 
+    FButt.Enabled = False
+    FButt.Picture = FButt.Picture.Image.Opacity(0.5).Picture
+  Else 
+    FButt.Enabled = True
+    FButt.Picture = Picture.Load("icon:/medium/next")
+  Endif
+  
+  If Current <= 1 Then 
+    BButt.Enabled = False
+    BButt.Picture = BButt.Picture.Image.Opacity(0.5).Picture
+  Else 
+    BButt.Enabled = True
+    BButt.Picture = Picture.Load("icon:/medium/previous")
+  Endif
+  Initialized = True
+  Raise Change(Current)
+End
+
+Public Sub NumberButton_Click()
+  If Initialized Then
+    Dim Selected As ToggleButton = Last
+     
+     If Selected.Text <> "..." Then 
+       Current = Selected.Text
+       Pager()
+     Endif 
+  Endif 
+End
+
+Public Sub NextButton_Click()
+  
+  Current = Current + 1
+  Pager()
+End
+
+Public Sub BackButton_Click()
+  
+  Current = Current - 1
+  Pager()
+End

@@ -1,0 +1,25 @@
+' Gambas class file
+
+Public Sub Form_Resize()
+
+  AlertText.Move(0, 0, Screen.Width, Screen.Height)
+  BibleRef.Move(0, Screen.AvailableHeight - 100, Screen.AvailableWidth, 100)
+  BibleText.Move(0, 0, Screen.AvailableWidth, Screen.AvailableHeight - 100)
+End
+
+Public Sub form_Close()
+  
+  FMain.Close
+  
+End
+
+Public Sub LoadViewer_Click()
+  
+  Viewer.WaylandWarning.Hide
+  Viewer.Background = Color.Transparent
+  Viewer.FullScreen = True
+  Viewer.BibleText.Height = Screen.AvailableHeight - 100
+  FMain.Minimized = False
+  FMain.Raise
+
+End

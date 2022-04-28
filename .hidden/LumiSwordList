@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+echo "^\[.*\]$
+Description=
+Copyright=
+Lang=
+About=" > ~/.sword/mods.d/filters.txt
+cd ~/.sword/mods.d/
+
+grep -n -l "LCSH=Bible. English" *.conf | while read line; do grep -i -f filters.txt $line;  done > ~/.config/bibler.conf
+grep -n -l "LCSH=Bible. Danish" *.conf | while read line; do grep -i -f filters.txt $line;  done >> ~/.config/bibler.conf
+grep -n -l "LCSH=Bible.Danish" *.conf | while read line; do grep -i -f filters.txt $line;  done >> ~/.config/bibler.conf
+grep -n -l "LCSH=Bible. German" *.conf | while read line; do grep -i -f filters.txt $line;  done >> ~/.config/bibler.conf
+perl -i -p -e 's/\\$//g' ~/.config/bibler.conf
+perl -i -p -e 's/(Short)?(Copyright=)(.*)$/$2\"$3\"/g' ~/.config/bibler.conf
+
+rm  ~/.sword/mods.d/filters.txt

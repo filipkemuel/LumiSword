@@ -1,0 +1,50 @@
+* Thu Apr 28 2022 Filip Kemuel <filip_kemuel@yahoo.dk> 0.9.7
+- Fixed crash when clearing the verselist
+- Fixed issue where verse 10 is always skipped
+- Added english desktop launcher
+
+* Thu Sep 16 2021 Filip Kemuel <filip_kemuel@yahoo.dk> 0.9.6
+- Tiny layout tweaks for the About page
+
+* Thu Sep 16 2021 Filip Kemuel <filip_kemuel@yahoo.dk> 0.9.2
+- Layout tweaks, alowing to resize the main window
+- Fixed Viewer failed to launch, when only one monitor
+
+* Wed Sep 15 2021 Filip Kemuel <filip_kemuel@yahoo.dk> 0.9.0
+- Lots of small tweaks and fixes
+- Better "About" page with room for translator name(s)
+- Added license to aboutpage, with clickable link.
+- Versionnumber bumped to 0.9 since this is now considered beta
+
+* Wed Sep 15 2021 Filip Kemuel <filip_kemuel@yahoo.dk> 0.5.20
+- Fixed filepath when opening verselist from commandline
+
+* Wed Sep 15 2021 Filip Kemuel <filip_kemuel@yahoo.dk> 0.5.19
+- Added warning when only one monitor is connected
+- Added Wayland detection and manual workaround for window-placement
+- Lumisword now removes uninstalled bibles from the list
+- Lumisword now adds a few bibles on startup if the biblelist is empty
+- Lumisword will check if the standard-fonts are available and replace them if they are not
+- Added verselist mimetype
+
+* Tue Sep 14 2021 Filip Kemuel <filip_kemuel@yahoo.dk> 0.5.8
+- Fixed "file not found" error
+
+* Tue Sep 14 2021 Filip Kemuel <filip_kemuel@yahoo.dk> 0.5.7
+- Added setting to set margins
+- Modified Translations-window so it can be resized
+- Fixed a few typos
+- Modifications to the desktop-file so hopefully the higher-res icons show up
+
+* Sun Sep 12 2021 Filip Kemuel <filip_kemuel@yahoo.dk> 0.5.5
+- Fixed Window auto resizing so it should work on both lo- and hi-dpi
+- Fixed keyboard navigation so it does not crash the program
+- Added new shortcut (esc) to clear the screen
+
+* Sat Sep 11 2021 Filip Kemuel <filip_kemuel@yahoo.dk> 0.5.1
+- Higer-res icon
+- Added Generator for adding new translations to the app
+
+* Sat Sep 11 2021 Filip Kemuel <filip_kemuel@yahoo.dk> 0.5.1
+- Initial release
+

@@ -1,0 +1,144 @@
+#!/usr/bin/env bash
+
+[ -z "$1" ] && file1="LumiSword.svg"; echo "Setting icon 1 to : Lumisword.svg" || file1="$1"
+[ -z "$2" ] && file2="text-verselist.svg"; echo "Setting icon 2 to : text-verselist.svg" || file2="$2"
+
+read -p "Press any key to resume ..."
+
+# Hicolor
+for i in 16 22 24 32 48 64 128 192 256 512; do
+mkdir -p hicolor/${i}x${i}/apps
+inkscape -C -w $i -o hicolor/${i}x${i}/apps/${file1/.svg/}.png ${file1}
+mkdir -p hicolor-dark/${i}x${i}/apps
+inkscape -C -w $i -o hicolor-dark/${i}x${i}/apps/${file1/.svg/}.png ${file1}
+
+mkdir -p hicolor/${i}x${i}/mimetypes
+inkscape -C -w $i -o hicolor/${i}x${i}/mimetypes/${file2/.svg/}.png ${file2}
+mkdir -p hicolor-dark/${i}x${i}/mimetypes
+inkscape -C -w $i -o hicolor-dark/${i}x${i}/mimetypes/${file2/.svg/}.png ${file2}
+done
+
+mkdir -p hicolor/scalable/apps
+cp ${file1} hicolor/scalable/apps
+
+mkdir -p hicolor/symbolic/apps
+cp ${file1/.svg/-symbolic.svg} hicolor/symbolic/apps
+mkdir -p hicolor/symbolic/mimetypes
+cp ${file1/.svg/-symbolic.svg} hicolor/symbolic/mimetypes/${file2/.svg/-symbolic.svg}
+
+mkdir -p hicolor/scalable/mimetypes
+cp ${file2} hicolor/scalable/mimetypes
+
+mkdir -p hicolor-dark/scalable/apps
+cp ${file1} hicolor-dark/scalable/apps
+
+mkdir -p hicolor-dark/symbolic/apps
+cp ${file1/.svg/-symbolic_dark.svg} hicolor-dark/symbolic/apps/${file1/.svg/-symbolic.svg}
+mkdir -p hicolor-dark/symbolic/mimetypes
+cp ${file1/.svg/-symbolic_dark.svg} hicolor-dark/symbolic/mimetypes/${file2/.svg/-symbolic.svg}
+
+mkdir -p hicolor-dark/scalable/mimetypes
+cp ${file2} hicolor-dark/scalable/mimetypes
+
+# Adwaita
+for i in 16 22 24 32 48 64 128 192 256 512; do
+
+mkdir -p Adwaita/${i}x${i}/mimetypes
+inkscape -C -w $i -o Adwaita/${i}x${i}/mimetypes/${file2/.svg/}.png ${file2}
+mkdir -p Adwaita-dark/${i}x${i}/mimetypes
+inkscape -C -w $i -o Adwaita-dark/${i}x${i}/mimetypes/${file2/.svg/}.png ${file2}
+done
+
+mkdir -p Adwaita/scalable/mimetypes
+cp ${file1/.svg/-symbolic.svg} Adwaita/scalable/mimetypes/${file2/.svg/-symbolic.svg}
+cp ${file2} Adwaita/scalable/mimetypes
+
+mkdir -p Adwaita-dark/scalable/mimetypes
+cp ${file1/.svg/-symbolic_dark.svg} Adwaita-dark/scalable/mimetypes/${file2/.svg/-symbolic.svg}
+cp ${file2} Adwaita-dark/scalable/mimetypes
+
+# Adwaita++
+
+mkdir -p Adwaita++/mimetypes/16
+inkscape -C -w $i -o Adwaita++/mimetypes/16/${file2/.svg/}.png ${file1/.svg/-symbolic.svg}
+mkdir -p Adwaita++-Dark/mimetypes/16
+inkscape -C -w $i -o Adwaita++-Dark/mimetypes/16/${file2/.svg/}.png ${file1/.svg/-symbolic_dark.svg}
+
+mkdir -p Adwaita++/mimetypes/symbolic
+cp ${file1/.svg/-symbolic.svg} Adwaita++/mimetypes/symbolic/${file2/.svg/-symbolic.svg}
+mkdir -p Adwaita++/mimetypes/scalable
+cp ${file2} Adwaita++/mimetypes/scalable
+
+mkdir -p Adwaita++-Dark/mimetypes/symbolic
+cp ${file1/.svg/-symbolic_dark.svg} Adwaita++-Dark/mimetypes/symbolic/${file2/.svg/-symbolic.svg}
+
+# Breeze
+
+for i in 16 22 24 32; do
+
+mkdir -p breeze/mimetypes/16
+inkscape -C -w $i -o breeze/mimetypes/16/${file2/.svg/}.png ${file1/.svg/-symbolic.svg}
+mkdir -p breeze-dark/mimetypes/16
+inkscape -C -w $i -o breeze-dark/mimetypes/16/${file2/.svg/}.png ${file1/.svg/-symbolic_dark.svg}
+done
+
+mkdir -p breeze/mimetypes/64
+cp ${file1/.svg/-symbolic.svg} breeze/mimetypes/64/${file2/.svg/-symbolic.svg}
+cp ${file2} breeze/mimetypes/64
+
+mkdir -p breeze-dark/mimetypes/64
+cp ${file1/.svg/-symbolic_dark.svg} breeze-dark/mimetypes/64/${file2/.svg/-symbolic.svg}
+cp ${file2} breeze-dark/mimetypes/64
+
+# Fluent
+
+for i in 16 22; do
+
+mkdir -p Fluent/${i}/mimetypes
+cp ${file1/.svg/-symbolic.svg} Fluent/${i}/mimetypes/${file2}
+done
+
+mkdir -p Fluent/scalable/mimetypes
+cp ${file2} Fluent/scalable/mimetypes
+
+mkdir -p Fluent/symbolic/mimetypes
+cp ${file1/.svg/-symbolic.svg} Fluent/symbolic/mimetypes/${file2/.svg/-symbolic.svg}
+mkdir -p Fluent-dark/symbolic/mimetypes
+cp ${file1/.svg/-symbolic.svg} Fluent-dark/symbolic/mimetypes/${file2/.svg/-symbolic.svg}
+
+
+# Newaita
+for i in 16 22 24 32 48; do
+mkdir -p Newaita/apps/${i}
+inkscape -C -w $i -o Newaita/apps/${i}/${file1/.svg/}.png ${file1}
+mkdir -p Newaita-dark/apps/${i}
+inkscape -C -w $i -o Newaita-dark/apps/${i}/${file1/.svg/}.png ${file1}
+
+mkdir -p Newaita/mimetypes/${i}
+inkscape -C -w $i -o Newaita/mimetypes/${i}/${file2/.svg/}.png ${file2/.svg/_newaita.svg}
+mkdir -p Newaita-dark/mimetypes/${i}
+inkscape -C -w $i -o Newaita-dark/mimetypes/${i}/${file2/.svg/}.png ${file2/.svg/_newaita.svg}
+done
+
+mkdir -p Newaita/apps/64
+cp ${file1} Newaita/apps/64
+
+mkdir -p Newaita/apps/64
+cp ${file1/.svg/-symbolic.svg} Newaita/apps/64
+
+mkdir -p Newaita/mimetypes/64
+cp ${file2/.svg/_newaita.svg} Newaita/mimetypes/64/${file2}
+cp ${file1/.svg/-symbolic.svg} Newaita/mimetypes/64/${file2/.svg/-symbolic.svg}
+
+mkdir -p Newaita-dark/apps/64
+cp ${file1} Newaita-dark/apps//64
+
+mkdir -p Newaita-dark/apps/64
+cp ${file1/.svg/-symbolic_dark.svg} Newaita-dark/apps/64/${file1/.svg/-symbolic.svg}
+
+mkdir -p Newaita-dark/mimetypes/64
+cp ${file2/.svg/_newaita.svg} Newaita-dark/mimetypes/64/${file2}
+cp ${file1/.svg/-symbolic_dark.svg} Newaita-dark/mimetypes/64/${file2/.svg/-symbolic.svg}
+
+# Application
+inkscape -C -w 256 -o ${file1/.svg/}.png ${file1}

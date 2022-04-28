@@ -1,0 +1,66 @@
+' Gambas class file
+
+Static Public Sub RTFdecode(toDecode As String, Optional Plaintext As Boolean) As String
+  
+  If Plaintext Then
+    toDecode = Replace(toDecode, "\\par", "\n")
+    toDecode = Replace(toDecode, "\\qc", "")
+  Else 
+    toDecode = Replace(toDecode, "\\par", "<br/>")
+    toDecode = Replace(toDecode, "\\qc", "")
+  Endif
+ 
+  Return toDecode
+  
+End
+
+
+Static Public Sub renderScripture(PlainText As String) As String
+  
+  PlainText = Replace(PlainText, "[", "<sup><small>")
+  PlainText = Replace(PlainText, "] ", "</small></sup>&nbsp;")
+  PlainText = RegExp.Replace(PlainText, "[*][*][*]([^*]*)[*][*][*]", "<b><i>&1</i></b>")
+  PlainText = RegExp.Replace(PlainText, "[*][*]([^*]*)[*][*]", "<b>&1</b>")
+  PlainText = RegExp.Replace(PlainText, "[*]([^*]*)[*]", "<i>&1</i>")
+  'PlainText = Replace(PlainText, "\n\n", "\n")
+  'PlainText = Replace(PlainText, "\n", "<br/>\n")
+  PlainText = RegExp.Replace(PlainText, "--TAB--", "<br />\n\t")
+  
+  Return PlainText
+  
+End
+
+Static Public Sub MyTrim(toTrim As String) As String
+  Dim Result As String
+  Result = RegExp.Replace(toTrim, "^<br/>", "", RegExp.MultiLine)
+  Return Trim(Result)
+End
+
+Static Public Sub print_spaces(count As Variant) As String
+  Dim result As String
+  For i As Integer = 0 To CInt(count)
+     result = result & "&nbsp;"
+  Next
+  Return result
+End
+
+Static Public Sub renderMark(Source As String) As String
+  Dim result As String
+  Dim count As Variant
+  result = Source
+  result = RegExp.Replace(result, "[*]{3}([^*]+)[*]{3}", "<b><i>&1</i></b>")
+  result = RegExp.Replace(result, "[*]{2}(.+)[*]{2}", "<b>&1</b>")
+  result = RegExp.Replace(result, "[*](.+)[*]", "<i>&1</i>")
+  result = RegExp.Replace(result, "[\\^](.+)[\\^]", "<sup>&1</sup>")
+  result = RegExp.Replace(result, "[~](.+)[~]", "<sub>&1</sub>")
+  result = RegExp.Replace(result, "\\{([+-]?[1-7]) (.*)}", "<font size=\"&1\">&2</font>")
+  result = RegExp.Replace(result, "\\{([#][0-9abcdefABCDEF]{3,6}) (.*)\\}", "<font color=\"&1\">&2</font>")
+  If RegExp.Match(result, "\\[[=]([0-9]{1,2})\\]") Then 
+    count = RegExp.Replace(result, ".*\\[[=]([0-9]{1,2})\\].*+", "&1", RegExp.DotAll + RegExp.MultiLine)
+    result = RegExp.Replace(result, "\\[[=]([0-9]{1,2})\\]", print_spaces(count))
+  Endif 
+  result = RegExp.Replace(result, "\\n", "<br/>")
+  'result = RegExp.Replace(result, "\\\\", "<br>") 
+  'result = result & "</p>"
+  Return result
+End

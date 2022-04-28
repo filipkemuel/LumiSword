@@ -1,0 +1,1455 @@
+' Gambas class file
+
+Public MyDebug As Boolean = False
+Public Lang As String
+Public BibleSettings As Settings
+
+Private StandardBibles As Collection = ["Biblen2020": "da", "Dan1992": "da", "BPH": "da", "NIV": "en", "NHEB": "en", "VOICE": "en"]
+Public Bibles As Collection = Settings["Scripture/Translations", StandardBibles]
+Public scriptureFont As Font = Font[Settings["Scripture/Font", "Bookerly,43"]]
+Public alertFont As Font = Font[Settings["Alerts/Font", "Milibus,43"]]
+Public LastOpenedFile As String = Settings["Scripture/LastOpenedFile", ""]
+Public myScriptureList As String[][] = [["Joh3:16-17", "Biblen2020"]]
+Public myAlertList As Collection = Settings["Alerts/Messages", ["": ""]]
+Public textMargin As Integer = Settings["Scripture/TextMargin", 100]
+Public alertMargin As Integer = Settings["Alerts/TextMargin", 40]
+Public StandardTranslation As Integer = Settings["Main/StandardTranslation", 0]
+Public lastdir As String = Settings["Main/SaveDir", Desktop.GetDirectory("DOCUMENTS") & "/" & ("VerseLists")]
+
+Public Ref As String
+Public MyPager As Pager
+Public MyAligner As AlignBox
+Public MySlide As String[] = [" "]
+
+Public ScreenOnline As Boolean = False
+Public wayland As Boolean = False
+Public firsttime As Boolean = False
+Public BookDrawerOpen As Boolean = True
+
+Public Sub Make_Sword_List()
+   Dim Result As String
+ Shell "LumiSwordList" To Result
+ Catch
+     Message.Error(Error.Text)
+End
+
+Public Sub build_syntax_help()
+  
+  SyntaxHelp.Columns.Count = 2
+  SyntaxHelp.Rows.Count = 11
+  SyntaxHelp.Columns.Width = SyntaxHelp.W / 2
+  SyntaxHelp.Columns[0].Title = ("Syntax")
+  SyntaxHelp.Header = GridView.None
+  SyntaxHelp.Columns[0].Alignment = Align.Center
+  SyntaxHelp.Columns[1].Title = ("Result")
+  SyntaxHelp.Columns[1].Alignment = Align.Center
+  
+  
+  SyntaxHelp[0, 0].Background = Color.Black
+  SyntaxHelp[0, 0].Foreground = Color.White
+  SyntaxHelp[0, 0].Text = ("Syntax")
+  SyntaxHelp[0, 1].Background = Color.Black
+  SyntaxHelp[0, 1].Foreground = Color.White
+  SyntaxHelp[0, 1].RichText = ("Result")
+  SyntaxHelp.Rows[0].Height = 48
+  
+  SyntaxHelp[1, 0].Text = ("*italic*")
+  SyntaxHelp[1, 1].RichText = ("<i>italic</i>")
+  
+  SyntaxHelp[2, 0].Text = ("**bold**")
+  SyntaxHelp[2, 1].RichText = ("<b>bold</b>")
+  
+  SyntaxHelp[3, 0].Text = ("***bold+italic***")
+  SyntaxHelp[3, 1].RichText = ("<b><i>bold+italic</i></b>")
+
+  'SyntaxHelp[4, 0].Background = Color.ButtonBackground
+  'SyntaxHelp[4, 1].Background = Color.ButtonBackground
+  
+  SyntaxHelp[5, 0].Text = "o^2^"
+  SyntaxHelp[5, 1].RichText = "O²"
+  
+  SyntaxHelp[6, 0].Text = "H~2~0"
+  SyntaxHelp[6, 1].RichText = "H<sub>2</sub>O"
+  
+  'SyntaxHelp[7, 0].Background = Color.ButtonBackground
+  'SyntaxHelp[7, 1].Background = Color.ButtonBackground
+  
+  SyntaxHelp[8, 0].Text = ("{+2 bigger}")
+  SyntaxHelp[8, 1].RichText = ("<font size=\"+2\">bigger</font>")
+  
+  SyntaxHelp[9, 0].Text = ("{-2 smaller}")
+  SyntaxHelp[9, 1].RichText = ("<font size=\"-2\">smaller</font>")
+
+  SyntaxHelp[10, 0].Text = ("Sp[=8]ce")
+  SyntaxHelp[10, 1].RichText = ("Sp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ce")
+  
+End
+
+
+Public Sub About_page()
+  AboutPanelWrapperH.W = AboutPanel.Parent.ClientWidth
+  AboutProgramName.Font.Size = AboutProgramName.Font.Size + 6
+  AboutVersion.Text = "Version: " & Application.Version 
+  AboutLabel.Text = AboutLabel.Text & "<p>" & ("A companion app For \"Floodlight Presenter\" and other types of lyrics-presentation software.") & "</p><p><small>" & "&copy; " & Year(Now) & ", Filip Kemuel" & "</small></p>"
+  
+  Logo.Picture = Picture.Load("LumiSword_256.png")
+  
+  LicenseBox.Y = AboutLabel.Y + AboutLabel.H
+  LicenseLabel1.Font.Size = LicenseLabel1.Font.Size - 1
+  LicenseLabel1.W = LicenseLabel1.Font.TextWidth(LicenseLabel1.Text)
+  LicenseLabel2.Font.Size = LicenseLabel2.Font.Size - 1
+  LicenseLabel2.Text = "EUPL-1.2-Or-later"
+  LicenseLabel2.Link = ("https://eupl.eu/1.2/en/")
+  LicenseLabel2.W = LicenseLabel2.Font.TextWidth(LicenseLabel2.Text)
+  
+  
+  Contribution.Y = LicenseBox.Y + LicenseBox.H + 10
+  
+  Dim CreatorLabel As New TextLabel(Contribution)
+  CreatorLabel.Text = ("Created by")
+  CreatorLabel.Alignment = Align.TopRight
+  CreatorLabel.Font.Size = CreatorLabel.Font.Size - 2
+  CreatorLabel.Move(5, 5, (Contribution.W - 8) / 2 - 4, 27)
+  Dim CreatorList As New TextLabel(Contribution)
+  CreatorList.Text = "Filip Kemuel"
+  CreatorList.Font.Size = Creatorlist.Font.Size - 2
+  CreatorList.Move(CreatorLabel.X + CreatorLabel.W + 8, 5, (Contribution.W - 8) / 2 - 4, CreatorList.Font.RichTextHeight(CreatorList.text, (Contribution.W - 8) / 2 - 4))
+  CreatorLabel.H = CreatorList.H
+  
+  Dim GraphicsLabel As New TextLabel(Contribution)
+  GraphicsLabel.Text = ("Graphics by")
+  GraphicsLabel.Alignment = Align.TopRight
+  GraphicsLabel.Font.Size = GraphicsLabel.Font.Size - 2
+  GraphicsLabel.Move(5, CreatorLabel.Y + CreatorLabel.H + 5, (Contribution.W - 8) / 2 - 4, 27)
+  Dim GraphicsList As New TextLabel(Contribution)
+  GraphicsList.Text = ("[Tanslator1 Name]<br/>[Translator2 Name]")
+  GraphicsList.Font.Size = Graphicslist.Font.Size - 2
+  GraphicsList.Move(GraphicsLabel.X + GraphicsLabel.W + 8, GraphicsLabel.Y, (Contribution.W - 8) / 2 - 4, GraphicsList.Font.RichTextHeight(GraphicsList.text, (Contribution.W - 8) / 2 - 4))
+  GraphicsLabel.H = GraphicsList.H
+  
+  Print Left(System.Language, 2)
+  If Left(System.Language, 2) <> "en" Then
+    Dim TransLabel As New TextLabel(Contribution)
+    TransLabel.Text = ("Translated by")
+    TransLabel.Alignment = Align.TopRight
+    TransLabel.Font.Size = TransLabel.Font.Size - 2
+    TransLabel.Move(5, GraphicsLabel.Y + GraphicsLabel.H + 5, (Contribution.W - 8) / 2 - 4, 27)
+    Dim TransList As New TextLabel(Contribution)
+    TransList.Text = "Filip Kemuel"
+    TransList.Font.Size = Translist.Font.Size - 2
+    TransList.Move(TransLabel.X + TransLabel.W + 8, TransLabel.Y, (Contribution.W - 8) / 2 - 4, TransList.Font.RichTextHeight(TransList.text, (Contribution.W - 8) / 2 - 4))
+    TransLabel.H = TransList.H
+  Endif
+
+  'AboutPanel.H = Contribution.Y + Contribution.H + 20
+  
+End
+
+
+
+Public Sub Form_Open()
+  Dim hScreen As Screen
+  Dim myArgs As String[]
+  SwitchAlerts.Height = 30
+  
+  FMain.MinW = BookChooser.W
+  
+  BibleSettings = New Settings(User.Home & "/.config/bibler.conf")
+  
+  Args.Begin("Lumisword [verselist.verses]")
+  myArgs = Args.End()
+  
+  If myArgs.Count > 0 Then 
+    LastOpenedFile = myArgs[0]
+    If Not Exist(LastOpenedFile) Then 
+      LastOpenedFile = Application.Dir & "/" & LastOpenedFile
+    Endif
+  Endif 
+
+  
+  If Not Exist(Desktop.GetDirectory("DOCUMENTS") & "/" & ("VerseLists")) Then
+    Shell.MkDir(Desktop.GetDirectory("DOCUMENTS") & "/" & ("VerseLists"))
+  Endif
+  Dim Af, Sf As String[]
+  Af = Split(alertFont.ToString(), ",")
+  If Not Fonts.Exist(Af[0]) Then
+    If 
+      Fonts.Exist("Ubuntu") Then
+      alertFont = Font["Ubuntu," & Af[1]]
+    Else If
+      Fonts.Exist("Milibus") Then
+      alertFont = Font["Milibus," & Af[1]]
+    Else If
+      Fonts.Exist("Comfortaa") Then
+      alertFont = Font["Comfortaa," & Af[1]]
+    Else If
+      Fonts.Exist("Noto Sans") Then
+      alertFont = Font["Noto Sans," & Af[1]]
+    Else If
+      Fonts.Exist("Cantarell") Then
+      alertFont = Font["Cantarell," & Af[1]]
+    Else 
+      alertFont = Font["Sans," & Af[1]]
+    Endif
+  Endif
+  
+  Sf = Split(scriptureFont.ToString(), ",")
+  If Not Fonts.Exist(Sf[0]) Then
+    If 
+      Fonts.Exist("URW Bookman") Then
+      scriptureFont = Font["URW Bookman," & Sf[1]]
+    Else If
+      Fonts.Exist("Cambria") Then
+      scriptureFont = Font["Cambria," & Sf[1]]
+    Else If
+      Fonts.Exist("Constantina") Then
+      scriptureFont = Font["Constantina," & Sf[1]]
+    Else If
+      Fonts.Exist("Noto Serif") Then
+      scriptureFont = Font["Noto Serif," & Sf[1]]
+    Else If
+      Fonts.Exist("DejaVu Serif") Then
+      scriptureFont = Font["Cantarell," & Sf[1]]
+    Else 
+      scriptureFont = Font["Serif," & Sf[1]]
+    Endif
+  Endif
+  
+  About_page()
+  
+  SyntaxHelp.Hide
+  
+  Search_Query_Example.Foreground = Color.SetAlpha(Color.TextForeground, 100)
+  Alert_Example.Foreground = Color.SetAlpha(Color.TextForeground, 100)
+  AlertName_Example.Foreground = Color.SetAlpha(Color.TextForeground, 100)
+  
+  Scripture_FontName.Text = scriptureFont.ToString()
+  Scripture_FontName.Font = scriptureFont
+  Scripture_FontName.Mouse = Mouse.Pointing
+  
+  Alert_FontName.Text = alertFont.ToString()
+  Alert_FontName.Font = alertFont
+  Alert_FontName.Mouse = Mouse.Pointing
+  
+  ScriptureColor.Color = Settings["Scripture/Font-Color", Color.White]
+  AlertColor.Color = Settings["Alerts/Font-Color", Color.White]
+  
+  
+  'Mkdir Desktop.GetDirectory("DOCUMENTS") & "/" & ("VerseLists") & "/"
+  
+  If Application.DarkTheme Then
+    Monitor_Control.Picture = Picture.Load("images/Monitor_dark.svg")
+  Else 
+    Monitor_Control.Picture = Picture.Load("images/Monitor.svg")
+  Endif
+  Wallpaper.Picture = Picture.Load("images/MorskieOko.jpg").Image.Brightness(-0.15).Picture
+
+  MyPager = New Pager(PagerP) As "MyPager"
+  MyPager.MaxButt = 12
+  MyPager.Current = 1
+  setPager(1)
+  
+  MyAligner = New AlignBox(Aligner) As "MyAligner"
+  MyAligner.SetFont(alertFont)
+  MyAligner.Alignment = Settings["Alerts/Alignment", Align.BottomRight]
+  
+  Dim iBible As String
+  For Each iBible In Bibles
+    If BibleSettings.Exist(Bibles.key & "/Lang") Then 
+      Print Bibles.Key & ": Found"
+    Else 
+      Print Bibles.Key & ": Not Found"
+    Endif
+    If Not BibleSettings.Exist(Bibles.key & "/Lang") Then
+      Bibles.Remove(Bibles.key)
+    Endif
+  Next
+  
+  If Bibles.Count <= 0 Then 
+    Print "Biblelist empty!"
+    If BibleSettings.Exist("MJVA") Then 
+      Print "Adding: MKJV"
+      Bibles.Add("MKJV", BibleSettings["MKJV/Lang"])
+    Else If BibleSettings.Exist("KJV") Then 
+      Print "Adding: KJV"
+      Bibles.Add("KJV", BibleSettings["KJV/Lang"])
+    Endif
+    Dim i As Integer = 0
+    For Each iBible In BibleSettings.Keys
+      If iBible = "MKJV" Or If iBible = "KJV" Then 
+        Continue 
+      Endif
+      Print "Adding:" & iBible
+      Bibles.Add(BibleSettings[iBible & "/Lang"], iBible)
+      If i > 3 Then 
+        Break 
+      Endif
+       i = i + 1
+    Next
+    
+  Endif
+  
+  
+  build_syntax_help()
+  
+  If Application.DarkTheme Then
+    Monitor_Control.Picture = Picture.Load("images/Monitor_dark.svg")
+'    MyAligner.Monitor.Picture = Picture.Load("images/Monitor_dark.svg")
+  Else 
+    Monitor_Control.Picture = Picture.Load("images/Monitor.svg")
+'    MyAligner.Monitor.Picture = Picture.Load("images/Monitor.svg")
+  Endif
+  Wallpaper.Picture = Picture.Load("images/MorskieOko.jpg").Image.Brightness(-0.15).Picture
+'  MyAligner.Wallpaper.Picture = Picture.Load("images/vapor.jpg")
+  
+  Search_Query.SetFocus
+  Pin_BookChooser.Value = True
+  Button_hide_Click()
+
+Dim BibLang As String
+If Bibles Then 
+  For Each BibLang In Bibles
+    Translation.Add(Bibles.Key)
+  Next
+Endif 
+  Translation.Index = StandardTranslation
+  Translation_Settings.List = Translation.List
+  STName.Text = BibleSettings[Translation_Settings[StandardTranslation].Text & "/Description"]
+  STAbout.Text = Utility.RTFdecode(BibleSettings[Translation_Settings[StandardTranslation].Text & "/About"], True)
+  STCopy.Text = BibleSettings[Translation_Settings[StandardTranslation].Text & "/Copyright"]
+  STAbout.Refresh
+  STName.Refresh
+  STCopy.Refresh
+  
+  If Screens.Count > 1 Then
+    hScreen = Screens[1]
+    If Env["XDG_SESSION_TYPE"] = "wayland" Then
+      wayland = True
+      firsttime = True
+      Viewer.Show
+    Else 
+      Viewer.Transparent = True
+      Viewer.Show
+      Viewer.WaylandWarning.Hide
+      Viewer.Move(hScreen.AvailableX + 40, hScreen.AvailableY + 40)
+      Viewer.FullScreen = True
+      Viewer.BibleText.Height = Screen.AvailableHeight - 100
+    Endif
+  Else 
+    Dim ScreenError As Integer = Message.Warning(("Lumisword is ment to be used on a multimonitor setup.\n The Viewer will be opened on the same screen as the main window!"), ("Cancel"), ("OK"))
+    If ScreenError = 1 Then 
+      Quit 
+    Endif
+    hScreen = Screens[0]
+    Viewer.Show
+    Viewer.WaylandWarning.Hide
+    Viewer.Move(hScreen.AvailableX + 40, hScreen.AvailableY + 40)
+    Viewer.Background = Color.Transparent
+    Viewer.FullScreen = True
+    Viewer.BibleText.Height = Screen.AvailableHeight - 100
+  Endif
+  
+  If Env["XDG_SESSION_TYPE"] = "wayland" Then
+    wayland = True
+  Endif 
+  Viewer.AlertText.Alignment = MyAligner.Alignment
+  
+  MarginSlider.Value = textMargin
+  MarginSlider.MaxValue = Screen.AvailableWidth / 4
+  MarginSlider.MinValue = 40
+  MarginSlider.Step = 10
+  alertMarginSlider.Value = alertMargin
+  alertMarginSlider.MaxValue = Screen.AvailableWidth / 4
+  alertMarginSlider.MinValue = 10
+  alertMarginSlider.Step = 10
+  
+  Dim hFile As File
+  Dim sLine As String
+  Dim oLine As String[]
+  
+  myScriptureList.Clear
+  
+  If LastOpenedFile <> "" Then
+    If Exist(LastOpenedFile) Then
+      hFile = Open LastOpenedFile For Input
+    While Not Eof(hFile)
+      Line Input #hFile, sLine
+      oLine = Split(sLine, "@")
+      myScriptureList.Add(oLine)
+      VerseList.Add(oLine[0] & " - (" & oLine[1] & ")")
+    Wend
+    VerseListFilename.Text = File.BaseName(LastOpenedFile)
+    Endif
+  Endif
+  
+  
+  
+  AlertList.Mode = Select.Single
+  AlertText.Wrap = False
+  AddAlert.Show
+  SaveAlert.Hide
+  RemoveAlert.Enabled = False
+  
+  Dim Alert_name As String
+
+  If myAlertList Then 
+    For Each Alert_name In myAlertList
+     AlertList.Add(myAlertList.Key)
+    Next
+  Endif 
+  
+  
+  
+  
+  
+  TabStrip1_Click()
+End
+
+Public Sub form_Activate()
+  
+  If firsttime Then 
+    Me.Minimized = True
+    firsttime = False
+  Endif
+  
+End
+
+
+Public Sub Form_Close()
+  
+  Viewer.Close
+  
+  Settings["Scripture/Translations"] = Bibles
+  Settings["Scripture/Font"] = scriptureFont.ToString()
+  Settings["Alerts/Font"] = AlertFont.ToString()
+  Settings["Scripture/LastOpenedFile"] = LastOpenedFile
+  Settings["Scripture/Font-Color"] = ScriptureColor.Color
+  Settings["Alerts/Font-Color"] = AlertColor.Color
+  Settings["Alerts/Messages"] = myAlertList
+  Settings["Scripture/TextMargin"] = textMargin
+  Settings["Alerts/TextMargin"] = alertMargin 
+  Settings["Alerts/Alignment"] = MyAligner.Alignment
+  Settings["Main/StandardTranslation"] = StandardTranslation
+  Settings["Main/SaveDir"] = lastdir
+  Quit 
+  
+End
+
+Static Public Direction As Collection = ["Left": "L", "Right": "R", "Up": "U", "Down": "D"]
+
+
+
+Public Sub Form_KeyPress()
+If TabStrip1.Index = 0 Then 
+  
+  If Key.Code = Key.PageDown Then 
+    Stop Event 
+    If MyPager.FButt.Enabled Then
+      MyPager.NextButton_Click()
+    Else If VerseList.Index < VerseList.Count - 1 Then
+      VerseList.Index = VerseList.Index + 1
+    Endif
+  Endif
+  If Key.Code = Key.PageUp Then 
+    Stop Event 
+    If MyPager.BButt.Enabled Then
+      MyPager.BackButton_Click()
+    Else If VerseList.Index > 0 Then
+      VerseList.Index = VerseList.Index - 1
+    Endif
+  Endif
+  If Key.Code = Key.End Then 
+    Stop Event 
+    If VerseList.Index < VerseList.Count - 1 Then
+      VerseList.Index = VerseList.Index + 1
+    Endif  
+  Endif
+  If Key.Code = Key.Home Then 
+    Stop Event 
+    If VerseList.Index > 0 Then
+      VerseList.Index = VerseList.Index - 1
+    Endif  
+  Endif
+  If Key.Code = Key.Esc Then 
+    Stop Event 
+     TextLabel1.Text = "" 
+     BibRef_Label.Text = ""
+     Search_Query.Text = ""
+     ClearViewer()
+  Endif
+Else If TabStrip1.Index = 1
+  If Key.Code = Key.PageDown Then 
+    Stop Event 
+    If AlertList.Index < AlertList.Count - 1 Then
+      AlertList.Index = AlertList.Index + 1
+    Endif  
+  Endif
+  If Key.Code = Key.PageUp Then 
+    Stop Event 
+    If AlertList.Index > 0 Then
+      AlertList.Index = AlertList.Index - 1
+    Endif  
+  Endif
+  If Key.Code = Key.End Then 
+    Stop Event 
+    If AlertList.Index < AlertList.Count - 1 Then
+      AlertList.Index = AlertList.Index + 1
+    Endif
+  Endif
+  If Key.Code = Key.Home Then 
+    Stop Event 
+    If AlertList.Index > 0 Then
+      AlertList.Index = AlertList.Index - 1
+    Endif
+  Endif
+  If Key.Code = Key.Esc Then 
+    Stop Event 
+     AlertName_Click()
+  Endif
+Endif
+
+End
+
+
+Public Sub MyPrint(ToPrint As String)
+  
+  If MyDebug Then
+    Print ToPrint
+  Endif
+  
+End
+
+Public Sub ShowVerse(VerseText As String, Optional VerseRef As String)
+  
+  ClearViewer()
+  
+  If ScreenOnline Then 
+    If VerseRef <> "" Then 
+       Viewer.BibleRef.Text = VerseRef
+    Endif
+    Viewer.BibleText.Text = VerseText
+  Else 
+    Viewer.BibleText.Text = ""
+    Viewer.BibleRef.Text = ""
+  Endif
+  If VerseRef <> "" Then 
+    BibRef_Label.Text = VerseRef
+  Endif
+  TextLabel1.Text = VerseText
+  TextLabel1.Refresh
+  BibRef_Label.Refresh
+  Viewer.BibleText.Refresh
+  Viewer.BibleRef.Refresh
+End
+
+Public Sub ShowAlert(theAlert As String)
+  
+  ClearViewer()
+  
+  If ScreenOnline Then 
+    Viewer.AlertText.Text = Utility.renderMark(theAlert)
+  Else 
+    Viewer.AlertText.Text = ""
+  Endif
+  If theAlert = "" Then 
+    MyAligner.PreviewText.Text = ("Text to show on screen...")
+  Else 
+    MyAligner.PreviewText.Text = Utility.renderMark(theAlert)
+  Endif
+  MyAligner.PreviewText.Refresh
+  Viewer.AlertText.Refresh
+  
+End
+
+
+
+Public Sub SetFont()
+
+  MyAligner.SetFont(alertFont)
+
+  TextLabel1.Font = scriptureFont
+  TextLabel1.Font.Size = scriptureFont.Size / 4
+  TextLabel1.Padding = textMargin / 4
+  BibRef_Label.Font = scriptureFont
+  BibRef_Label.Font.Size = TextLabel1.Font.Size / 1.5
+
+  Viewer.BibleText.Font = scriptureFont
+  Viewer.BibleText.Foreground = ScriptureColor.Color
+  Viewer.BibleText.Padding = textMargin
+  Viewer.BibleRef.Font = scriptureFont
+  Viewer.BibleRef.Foreground = ScriptureColor.Color
+  Viewer.BibleRef.Font.Size = scriptureFont.Size / 1.5 
+  Viewer.BibleRef.Padding = 40
+  Viewer.AlertText.Font = alertFont
+  Viewer.AlertText.Foreground = AlertColor.Color
+  Viewer.AlertText.Padding = alertMargin
+  
+  Viewer.BibleRef.Refresh
+  Viewer.BibleText.Refresh
+  Viewer.AlertText.Refresh
+End
+
+
+Public Sub setPager(total As Integer, Optional current As Integer) As Integer
+  
+  MyPager.NOB = total
+  If current > 0 Then
+    MyPager.Current = current
+  Endif
+  MyPager.Pager()
+End
+
+
+Public Sub Fix_Query(query As String) As String
+  
+  Dim result As String
+  
+  result = Replace(query, ",", ":")
+  result = Replace(result, ";", ",")
+  Return result
+  
+End
+
+Public Sub SwitchAlerts_Click()
+
+  If SwitchAlerts.Value Then 
+    SwitchAlerts.Text = ("Online")
+    If Application.DarkTheme Then 
+      SwitchAlerts.Foreground = Color.ButtonBackground
+      SwitchAlerts.Picture = SwitchAlerts.Picture.Image.Invert(True).Picture
+    Endif
+    SwitchAlerts.Background = Color.SoftGreen
+    ScreenOnline = True
+  Else 
+    SwitchAlerts.Text = ("Offline")
+    If Application.DarkTheme Then 
+      SwitchAlerts.Foreground = Color.ButtonForeground
+      SwitchAlerts.Picture = SwitchAlerts.Picture.Image.Invert(True).Picture
+    Endif
+    SwitchAlerts.Background = Color.Default
+    ScreenOnline = False
+  Endif
+  
+   Select Case TabStrip1.Index
+     Case 0
+      ShowVerse(MySlide[MyPager.Current - 1], Ref)
+     Case 1
+      ShowAlert(AlertText.Text)
+   End Select
+    
+End
+
+Public Sub Button_hide_Click()
+
+  If BookDrawerOpen Then 
+    BookButtonPanel.Hide
+    BookChooserWrapper.Move(0, -BookChooserWrapper.H + Button_hide.H - 2)
+    Button_hide.Text = ("▾  BookChooser  ▾")
+    If Main_Panel_Wrapper2.H < Main_panel.H + 20 Then
+      Main_Panel_Wrapper2.H = Main_panel.H + 20
+    Endif
+    Me.H = Main_Panel_Wrapper2.H + (Button_hide.H - 2)
+    Main_Panel_Wrapper2.Move(0, Button_hide.H - 2)
+    FMain.MinH = Main_Panel_Wrapper2.H + Button_hide.H
+    BookDrawerOpen = False
+  Else 
+    BookButtonPanel.Show
+    BookChooserWrapper.Move(0, 0)
+    Button_hide.Text = ("▴  BookChooser  ▴")
+    If Main_Panel_Wrapper2.H - BookChooserWrapper.H > Main_panel.H Then
+      Main_Panel_Wrapper2.H = Main_Panel_Wrapper2.H - BookChooserWrapper.H
+    Else 
+      Main_Panel_Wrapper2.H = MainPanel.H
+    Endif
+    Main_Panel_Wrapper2.Move(0, BookChooserWrapper.H)
+    Me.H = Main_Panel_Wrapper2.H + BookChooserWrapper.H
+    FMain.MinH = Main_Panel_Wrapper2.H + BookChooserWrapper.H
+    BookDrawerOpen = True
+  Endif
+  'Print "Height: " & Me.H
+  Search_Query.SetFocus
+End
+
+Public Sub BookChoice_Click()
+
+  Dim clicked As Button = Last
+  Dim MyBook As String
+  
+  If Lang = "da" Then 
+    MyBook = BibleNames.DA[clicked.Tag - 1]
+  Else 
+    MyBook = BibleNames.EN[clicked.Tag - 1]
+  Endif
+  
+  If RegExp.Match(Search_Query.Text, "^[0-3]?[ ]?[A-Åa-å ]+") Then
+    Search_Query.Text = RegExp.Replace(Search_Query.Text, "^[0-3]?[ ]?[A-Åa-å ]+", MyBook & " ", RegExp.Greedy)
+    Search_Query_Click()
+  Else 
+    Search_Query.Text = Mybook & " "
+  Endif
+  
+  
+  If Not Pin_BookChooser.Value Then 
+    Button_hide_Click()
+  Endif
+  Search_Query.SetFocus
+End
+
+Public Sub Search_Query_Click()
+  Dim Result, prevLine, tResult As String
+  Dim sLine, Book, FirstRef, SecondRef, Bible As String
+  
+  Dim FirstLine As Boolean = True
+  
+  MyPrint("Search: " & Search_Query.Text)
+  
+  Shell "diatheke -b " & Translation.Text & " -f WEBIF -l " & "da" & " -k " & Fix_Query(Search_Query.Text) To Result
+  Result = Trim(Result)
+  
+  ' remove extra newlines
+  Result = Replace(Result, "<br />\n", "<br />")
+  Book = RegExp.Replace(Result, "(.*)[0-9]{1,3}:[0-9]{1,3}:.*+", "&1", RegExp.DotAll)
+  For Each sLine In Split(RegExp.Replace(Result, ".*([0-9]{1,3}:[0-9]{1,3}):.*+", "&1"), "\n")
+    If FirstLine Then 
+      FirstRef = sLine
+      FirstLine = False
+    Endif
+    If sLine Begins "(" Then
+      Bible = sLine 
+    Else If RegExp.Match(sLine, "[0-9]{1,3}:[0-9]{1,3}") Then 
+      SecondRef = sLine
+    Endif
+  Next
+  
+  If FirstRef = SecondRef Then 
+    Ref = Book & FirstRef & " " & Bible
+  Else If RegExp.Replace(FirstRef, "([0-9]{1,3}):[0-9]{1,3}+", "&1") = RegExp.Replace(SecondRef, "([0-9]{1,3}):[0-9]{1,3}+", "&1") Then 
+    Ref = Book & FirstRef & "-" & RegExp.Replace(SecondRef, "[0-9]{1,3}:([0-9]{1,3})", "&1") & " " & Bible
+  Else 
+    Ref = Book & FirstRef & "-" & SecondRef & " " & Bible
+  Endif
+  
+      ' replace references with just verse numbers eg. Acts 3:5 = [5]
+  Result = Replace(Result, Bible, "")
+  Result = RegExp.Replace(Result, ".*[0-9]{1,3}:([0-9]{1,3}):", "[&1]")
+      ' Move empty versenumbers up to the verse they are connected to
+  Result = RegExp.Replace(Result, "\\n([[0-9]{1,3}] \\n)", "&1", RegExp.DotAll)
+      ' move the end verse up to the versenumber
+  Result = RegExp.Replace(Result, "(\\[[0-9]{1,3})\\] ([^\\]\\n]+)(?:\\[[0-9]{1,3}\\] )*?\\[([0-9]{1,3}\\])", "&1-&3 &2", RegExp.Greedy)
+      ' Use span syntax for varse range
+  Result = RegExp.Replace(Result, "\\[[0-9]{1,3}\\] <span class=[\"]x-usfm-vp[\"] data-n=[\"]([0-9\\-]+) ?[\"] data-type=[\"]x-usfm-vp[\"]></span>", "[&1] ", RegExp.Greedy)
+      ' Use Span syntax for tab-indents
+      ' fix for badly formatted bibles
+  Result = RegExp.Replace(Result, "</span><span class=[\"]line indent0[\"]>", "--TAB--")
+  Result = RegExp.Replace(Result, "<span class=[\"]line indent0[\"]>", "--TAB--")
+      ' Strip spans And divs
+  Result = RegExp.Replace(Result, "</?(span|div)[^>]*>", "")
+      ' Strip stray Headings
+  Result = RegExp.Replace(result, "<H[1-6][^>]*>[^>]*</H[1-6]>", "")
+      ' Bold markdiwn
+  Result = RegExp.Replace(Result, "</?[bB]>", "**")
+      ' Emphasis markdown
+  Result = RegExp.Replace(Result, "</?[i]>", "*")
+  ' TODO: Fix the fuction so that it does not delete verse 10
+      ' Remove Duplicate lines
+   ' For Each sLine In Split(Result, "\n")
+   '   If Not String.Comp(prevLine, sLine) = 0 Then 
+   '     tResult = tResult & "\n" & sLine
+   '   Endif
+   '   prevLine = sLine
+   ' Next
+   ' Result = Replace(tResult, "<br />", "\n")
+   Result = Replace(Result, "<br/>", "\n")
+  
+  
+  
+  createSildes(Trim(Result))
+  MyPager.Current = 1
+  ShowVerse(MySlide[MyPager.Current - 1], Ref)
+  
+End
+
+Public Sub Search_Query_Activate()
+  
+  Search_Query_Click()
+  
+End
+
+Public Sub Search_Query_Change()
+  
+  If Search_Query.Text <> "" Then
+    Search_Query_Example.Hide
+  Else 
+    Search_Query_Example.Show
+  Endif
+  
+End
+
+
+Public Sub Pin_BookChooser_Click()
+
+  ' If Pin_BookChooser.Value Then 
+  '   Pin_BookChooser.Picture = Pin_BookChooser.Picture.Image.Lightness(+1.0).Colorize(Color.Green).Picture
+  '   Pin_BookChooser.Background = Color.DarkGreen
+  ' Else 
+  '   Pin_BookChooser.Picture = Pin_BookChooser.Picture.Image.Lightness(+1.0).Colorize(Color.ButtonForeground).Picture
+  '   Pin_BookChooser.Background = Color.ButtonBackground
+  ' Endif
+  Search_Query.SetFocus
+End
+
+Public Sub Translation_Select()
+
+  Lang = Bibles[Translation.Text]
+  MyPrint(Lang)
+  If Search_Query.Text <> "" Then 
+  
+    Search_Query_Click
+  Endif
+  Search_Query.SetFocus
+End
+
+
+Public Sub MyPager_Change(Num As Integer)
+  
+  If Num - 1 > MySlide.Length Then
+    Num = 1
+  Else If Num - 1 < 0 Then 
+    Num = 1
+  Endif
+      ShowVerse(MySlide[Num - 1], Ref)
+  Search_Query.SetFocus
+End
+
+
+
+
+
+
+
+
+
+Public Sub createSildes(slideText As String)
+  Dim MyHeight, SlideHeight, i As Integer
+  Dim SlideLine, SlideParagraph, Result As String
+  
+  SlideHeight = Viewer.BibleText.ClientHeight - (textMargin * 2)
+  
+  'Clean out the Slide array
+  i = 0
+  MySlide.Clear
+  MySlide.Add("", i)
+  
+  'Try to split at paragraphs first.
+  slideText = RegExp.Replace(slideText, "\\n\\h*\\n", "@")
+  
+  'Print slideText
+
+  For Each SlideParagraph In Split(Utility.renderScripture(slideText), "@")
+    SlideParagraph = Utility.MyTrim(SlideParagraph)
+    If SlideParagraph.Len <= 0 Then 
+      MyPrint("EMPTY LINE!")
+    Else 
+    'MyPrint("Paragraph: " & SlideParagraph)
+    MyHeight = scriptureFont.RichTextHeight(SlideParagraph, Screen.AvailableWidth - (2 * textMargin))
+    
+    If MyHeight < SlideHeight Then 
+      If Result <> "" Then 
+        Result = Result & "<br/><br/>\n" & SlideParagraph
+      Else 
+        Result = Result & SlideParagraph
+      Endif
+      
+      MyHeight = scriptureFont.RichTextHeight(Result, Screen.AvailableWidth - (2 * textMargin))
+        If MyHeight < SlideHeight Then
+          MySlide.Remove(i)
+          MySlide.Add(Result, i)
+          MyPrint("\nAdd Parahraph to Slide:" & i & "\n")
+          MyPrint(Result)
+        Else 
+          i = i + 1
+          Result = SlideParagraph
+          MySlide.Remove(i)
+          MySlide.Add(Result, i)
+          MyPrint("\nAdd Paragreaph to Slide:" & i & "\n")
+          MyPrint(Result)
+        Endif
+    Else 
+      SlideParagraph = RegExp.Replace(SlideParagraph, "\n", "@")
+      For Each SlideLine In Split(SlideParagraph, "@")
+        'MyPrint("Line: " & SlideLine)
+          Result = Result & SlideLine
+        MyHeight = scriptureFont.RichTextHeight(Result, Screen.AvailableWidth - (2 * textMargin))
+        If MyHeight < SlideHeight Then
+          MySlide.Remove(i)
+          MySlide.Add(Result, i)
+          MyPrint("\nAdd line to slide:" & i & "\n")
+          MyPrint(Result)
+        Else 
+          i = i + 1
+          Result = SlideLine
+          MySlide.Remove(i)
+          MySlide.Add(Result, i)
+          MyPrint("\nAdd line to Slide:" & i & "\n")
+          MyPrint(Result)
+        Endif
+      Next
+    Endif 
+    Endif
+  Next 
+  setPager(MySlide.Length, 1)
+  
+End
+
+Public Sub AddRef_Click()
+
+  If Search_Query.Text <> "" Then
+    myScriptureList.Add([Search_Query.Text, Translation.Text])
+    VerseList.Add(Search_Query.Text & " - (" & Translation.Text & ")")
+  Endif
+
+End
+
+Public Sub RemoveRef_Click()
+
+    If VerseList.Index >= 0 Then
+      myScriptureList.Remove(VerseList.Index)
+      VerseList.Remove(VerseList.Index)
+    Endif
+End
+
+Public Sub VerseList_Click()
+  If VerseList.Index >= 0 Then
+    Translation.Index = Translation.Find(myScriptureList[VerseList.Index][1])
+    Search_Query.Text = myScriptureList[VerseList.Index][0]
+    Search_Query_Activate
+  Endif 
+End
+
+Public Sub SaveRefList_Click()
+
+  Dim CSV As String
+  Dim Field As String[]
+  Dim Filename As String = Year(Now) & "-" & Month(Now) & "-" & Day(Now) & "-" & ("Service") & ".verses"
+  
+  If VerseList.Count <= 0 Then 
+    Return
+  Endif
+  For Each Field In myScriptureList
+    CSV = CSV & Field[0] & "@" & Field[1] & "\n"
+  Next
+
+  Dialog.Filter = ["*.verses", "Verse Lists"]
+  Dialog.AutoExt = True
+  
+  Dialog.Path = lastdir & "/" & Filename
+  If Dialog.SaveFile() Then Return
+    File.Save(Dialog.Path, CSV)
+    LastOpenedFile = Dialog.Path
+    lastdir = File.Dir(Dialog.Path)
+    VerseListFilename.Text = File.BaseName(LastOpenedFile)
+Catch
+   Message.Error(Error.Text)
+End
+
+Public Sub OpenRef_Click()
+  Dim hFile As File
+  Dim sLine As String
+  Dim oLine As String[]
+  
+
+  Dialog.Filter = ["*.verses", "Verse Lists"]
+  Dialog.AutoExt = True
+  
+  Dialog.Path = lastdir & "/"
+  If Dialog.OpenFile() Then Return
+    
+  hFile = Open Dialog.Path For Input
+  
+
+  myScriptureList.Clear
+  VerseList.Clear
+  
+  While Not Eof(hFile)
+    Line Input #hFile, sLine
+    oLine = Split(sLine, "@")
+    myScriptureList.Add(oLine)
+    VerseList.Add(oLine[0] & " - (" & oLine[1] & ")")
+  Wend
+  LastOpenedFile = Dialog.Path
+  lastdir = File.Dir(Dialog.Path)
+  VerseListFilename.Text = File.BaseName(LastOpenedFile)
+Catch
+   Message.Error(Error.Text)
+
+End
+
+Public Sub ClearViewer()
+  
+  Viewer.BibleRef.Text = ""
+  Viewer.BibleText.Text = ""
+  Viewer.AlertText.Text = ""
+  
+End
+
+
+Public Sub ClearRef_Click()
+
+  VerseList.Clear
+  myScriptureList.Clear
+  VerseListFilename.Text = ""
+  
+End
+
+Public Sub ScriptureColor_Click()
+
+  Viewer.BibleRef.Foreground = ScriptureColor.Color
+  Viewer.BibleText.Foreground = ScriptureColor.Color
+  Viewer.BibleRef.Refresh
+  Viewer.BibleText.Refresh
+
+End
+
+
+Public Sub IncreaseScriptureFont_Click()
+  
+  If scriptureFont.Size <= 150 Then 
+    scriptureFont.Size = scriptureFont.Size + 4
+    SetFont()
+    Search_Query_Click
+  Endif
+  
+
+End
+
+Public Sub DecreaseScriptureFont_Click()
+
+  If scriptureFont.Size >= 30 Then 
+    scriptureFont.Size = scriptureFont.Size - 4
+    SetFont
+    Search_Query_Click
+  Endif 
+End
+
+Public Sub TabStrip1_Click()
+
+  Select Case TabStrip1.Index
+    Case 0
+      If Main_Panel_Wrapper2.H < Main_panel.H Then
+          Main_Panel_Wrapper2.H = Main_panel.H + 10
+        Endif
+      If BookDrawerOpen Then
+        If Me.H < Main_Panel_Wrapper2.H + BookChooserWrapper.H Then
+          Me.H = Main_Panel_Wrapper2.H + BookChooserWrapper.H
+        Endif
+      Else 
+        If Me.H < Main_Panel_Wrapper2.H + Button_hide.H Then 
+           Me.H = Main_Panel_Wrapper2.H + Button_hide.H
+        Endif
+      Endif
+      If BookDrawerOpen Then
+        FMain.MinH = Main_Panel_Wrapper2.H + BookChooserWrapper.H
+      Else 
+        FMain.MinH = Main_Panel_Wrapper2.H + Button_hide.H
+      Endif
+      Search_Query.SetFocus
+    Case 1
+      If Me.H < MessagePanel.H + 80 Then 
+        Me.H = MessagePanel.H + 80
+      Endif 
+      FMain.MinH = MessagePanel.H + 80
+      AlertText.SetFocus
+    Case 2
+      If Me.H < SFPanel.H + MarginPanel.H + SSTPanel.H + 100 Then 
+        Me.H = SFPanel.H + MarginPanel.H + SSTPanel.H + 100
+      Endif 
+      FMain.MinH = SFPanel.H + MarginPanel.H + SSTPanel.H + 100
+    Case 3
+      If Me.H < AboutPanel.H + 40 Then 
+        Me.H = AboutPanel.H + 40
+      Endif 
+      FMain.MinH = AboutPanel.H + 40
+  End Select
+  
+  Form_Resize
+
+  ' 'Print "Height: " & Me.H
+
+End
+
+
+Public Sub AlertName_Activate()
+
+  If AlertName.Text = "" Then
+    AlertName.SetFocus
+    AlertName.Background = Color.DarkRed
+    AlertName.Refresh
+  Else If AlertList.Find(AlertName.Text) >= 0 Then 
+    If AlertList.Index < 0 Then 
+    AlertName.SetFocus
+    AlertName.Background = Color.DarkRed
+    AlertName.Refresh
+    Endif
+  Else 
+    myAlertList.Add(AlertText.Text, AlertName.Text)
+    AlertList.Add(AlertName.Text)
+    AlertName.Clear
+    AlertText.Clear
+    AlertText.SetFocus
+  Endif
+
+End
+
+Public Sub AlertName_Change()
+
+  If AlertName.Text <> "" Then
+    AlertName_Example.Hide
+  Else 
+    AlertName_Example.Show
+  Endif
+  
+  AlertName.Background = Color.TextBackground
+  AlertName.Refresh
+  If AlertList.Index > -1 Then 
+    AddAlert.Hide
+    SaveAlert.Show
+  Else 
+    AddAlert.Show
+    SaveAlert.Hide
+  Endif
+  
+End
+
+Public Sub AlertList_Select()
+  
+  RemoveAlert.Enabled = True
+  AddAlert.Hide
+  SaveAlert.Show
+  AlertText.Text = myAlertList[AlertList.Text]
+  AlertName.Text = AlertList.Text
+  AlertText.Refresh
+  AlertName.Refresh
+  AlertName.ReadOnly = True
+  AlertName.Background = Color.TextBackground
+  
+  ShowAlert(AlertText.Text)
+  
+End
+
+
+Public Sub AddAlert_Click()
+  
+  AlertName_Activate()
+  
+End
+
+Public Sub AlertText_Change()
+  
+  If AlertText.Text <> "" Then
+    Alert_Example.Hide
+  Else 
+    Alert_Example.Show
+  Endif
+  
+  ShowAlert(AlertText.Text)
+  
+End
+
+Public Sub RemoveAlert_Click()
+  
+  myAlertList.Remove(AlertList.Text)
+  AlertList.Remove(AlertList.Index)
+  AddAlert.Show
+  SaveAlert.Hide
+  RemoveAlert.Enabled = False
+  AlertName.ReadOnly = False
+  
+End
+
+Public Sub AlertName_Click()
+  
+  AlertName.Clear
+  AlertText.Clear
+  Me.Refresh
+  AddAlert.Show
+  SaveAlert.Hide
+  AlertList.UnselectAll
+  RemoveAlert.Enabled = False
+  AlertName.ReadOnly = False
+  AlertText.SetFocus
+  ClearViewer()
+End
+
+Public Sub SaveAlert_Click()
+
+  myAlertList.Add(AlertText.Text, AlertList.Text)
+  AlertName.Clear
+  AlertText.Clear
+  AlertName.ReadOnly = False
+  AddAlert.Show
+  SaveAlert.Hide
+  AlertText.SetFocus
+  AlertList.UnselectAll
+  RemoveAlert.Enabled = False
+  
+End
+
+Public Sub AlertText_KeyPress()
+  
+  If Key.Code = 65289 Then 
+    AlertName.SetFocus
+    Stop Event 
+  Endif
+  
+End
+
+
+
+
+Public Sub IncreaseAlertFont_Click()
+
+    If alertFont.Size <= 150 Then 
+    alertFont.Size = alertFont.Size + 4
+    SetFont()
+    ShowAlert(AlertText.Text)
+  Endif
+
+End
+
+Public Sub DecreaseAlertFont_Click()
+
+    If alertFont.Size >= 30 Then 
+    alertFont.Size = alertFont.Size - 4
+    SetFont()
+    ShowAlert(AlertText.Text)
+  Endif
+
+End
+
+Public Sub MyAligner_Changed(Alignment As Integer)
+  
+  Viewer.AlertText.Alignment = Alignment
+  
+End
+
+Public Sub AlertColor_Click()
+  SetFont()
+End
+
+
+Public Sub Scripture_FontName_MouseDown()
+
+  Scripture_FontName.Move(Scripture_FontName.X + 2, Scripture_FontName.Y + 2) 
+  
+
+End
+
+Public Sub Scripture_FontName_MouseUp()
+  
+  Scripture_FontName.Move(Scripture_FontName.X - 2, Scripture_FontName.Y - 2) 
+  Dialog.Font = scriptureFont
+  If Dialog.SelectFont() Then Return 
+  scriptureFont = Dialog.Font
+  Scripture_FontName.Text = scriptureFont.ToString()
+  Scripture_FontName.Font = scriptureFont
+  SetFont()
+End
+
+
+Public Sub Alert_FontName_MouseDown()
+
+  Alert_FontName.Move(Alert_FontName.X + 2, Alert_FontName.Y + 2) 
+
+End
+
+Public Sub Alert_FontName_MouseUp()
+
+  Alert_FontName.Move(Alert_FontName.X - 2, Alert_FontName.Y - 2) 
+  Dialog.Font = alertFont
+  If Dialog.SelectFont() Then Return 
+  alertFont = Dialog.Font
+  Alert_FontName.Text = alertFont.ToString()
+  Alert_FontName.Font = alertFont
+  SetFont()
+
+End
+
+Public Sub AddTranslation_Click()
+
+  TranslationSelect.ShowModal
+
+End
+
+Public Sub RemoveTranslation_Click()
+
+  If Translation_Settings.Index > -1 Then 
+    Bibles.Remove(Translation_Settings.Text)
+    Translation.Remove(Translation_Settings.Index)
+    Translation_Settings.Remove(Translation_Settings.Index)
+    Translation_Settings_Select()
+  Endif
+
+End
+
+Public Sub FavoriteTranslation_Click()
+  If Translation_Settings.Index > -1 Then 
+    StandardTranslation = Translation_Settings.Index
+    STName.Text = BibleSettings[Translation_Settings.Text & "/Description"]
+    STAbout.Text = Utility.RTFdecode(BibleSettings[Translation_Settings.Text & "/About"], True)
+    STCopy.Text = BibleSettings[Translation_Settings.Text & "/Copyright"]
+    STAbout.Refresh
+    STName.Refresh
+    STCopy.Refresh
+  Endif 
+End
+
+
+Public Sub AlertHelp_Click()
+
+  If SyntaxHelp.Visible Then
+    SyntaxHelp.Hide
+  Else 
+    SyntaxHelp.Show
+  Endif
+
+End
+
+Public Sub Form_Resize()
+  TabStrip1.H = Me.ClientH
+  TabStrip1.W = Me.ClientW
+  SettingsPanel.W = TabStrip1.ClientW
+  Main_Panel_Wrapper.W = TabStrip1.ClientW
+  If BookDrawerOpen Then 
+    Main_Panel_Wrapper2.Resize(Main_Panel_Wrapper2.Parent.ClientW, Main_Panel_Wrapper2.Parent.ClientH - BookChooserWrapper.H)
+  Else 
+    Main_Panel_Wrapper2.Resize(Main_Panel_Wrapper2.Parent.ClientW, Main_Panel_Wrapper2.Parent.ClientH - Button_hide.H)
+  Endif
+  
+  BookChooserWrapper.W = TabStrip1.ClientW
+  SFPanel.Move(20, 20, SettingsPanel.ClientWidth - 38, SFPanel.H)
+  Scripture_FontName.Resize(SFPanel.ClientWidth - 2, SFPanel.H - Label1.H - 2)
+  MarginPanel.Move(20, SFPanel.H + 29, SettingsPanel.ClientW - 40, MarginPanel.H)
+  SSTPanel.Move(20, SFPanel.H + MarginPanel.H + 39 - Desktop.Scale, (SettingsPanel.ClientWidth - STPanel.Width - 80) / 2)
+  TIPanel.Move(SSTPanel.W + STPanel.W + 60, SFPanel.H + MarginPanel.H + 39 - Desktop.Scale, (SettingsPanel.ClientWidth - STPanel.Width - 80) / 2)
+  STPanel.Move(SettingsPanel.ClientWidth - TIPanel.W - STPanel.Width - 40, SFPanel.H + MarginPanel.H + 39)
+  SFPanel.Parent.H = SFPanel.H + 40 + STPanel.H + 20
+  AFPanel.Move(20, 20, SettingsPanel.ClientWidth - 38, AFPanel.H)
+  Alert_FontName.Resize(AFPanel.ClientWidth - 2, AFPanel.H - Label2.H - 2)
+  If alertMarginPanel.W < MarginLabel2.W + alertMarginSlider.W Then
+    alertMarginPanel.Move(20, AFPanel.H + 29, SettingsPanel.ClientW - 40, alertMarginSlider.H * 2)
+  Else 
+    alertMarginPanel.Move(20, AFPanel.H + 29, SettingsPanel.ClientW - 40, alertMarginSlider.H)
+  Endif
+  
+
+  SwitchAlerts.Top = Me.H - (SwitchAlerts.H + 4)
+  SwitchAlerts.Left = Me.W - (SwitchAlerts.W + 4)
+  
+  'AboutPanelWrapperV.Resize(AboutPanelWrapperV.Parent.ClientW, AboutPanelWrapperV.Parent.H)
+  AboutPanelWrapperH.Resize(AboutPanelWrapperH.Parent.ClientW, AboutPanel.H)
+  
+End
+
+Public Sub form_State()
+  If Me.Maximized Then
+    TabStrip1.Resize(Screen.W, Screen.H)
+  Endif
+End
+
+
+Public Sub SSTPanel_BeforeArrange()
+
+  STPicture.Move(5, 5 + Desktop.Scale)
+  STName.Move(STPicture.W + 8, 10 + Desktop.Scale, STName.Parent.W - STPicture.W - 13, STPicture.H - 13)
+  STAbout.Move(8, STPicture.H + Desktop.Scale, STAbout.Parent.W - 10, STAbout.H)
+  STCopy.Move(8, STCopy.Parent.H - STCopy.H, STCopy.Parent.W - 10, STCopy.H)
+
+End
+
+Public Sub TIPanel_BeforeArrange()
+
+  TIPicture.Move(5, 5 + Desktop.Scale)
+  TIName.Move(TIPicture.W + 8, 10 + Desktop.Scale, TIName.Parent.W - TIPicture.W - 13, TIPicture.H - 13)
+  TIAbout.Move(8, TIPicture.H + Desktop.Scale, TIAbout.Parent.W - 10, TIAbout.H)
+  TICopy.Move(8, TICopy.Parent.H - TICopy.H, TICopy.Parent.W - 10, TICopy.H)
+
+End
+
+Public Sub Alert_Example_MouseDown()
+   AlertText.SetFocus
+   
+  If AlertText.Text <> "" Then
+    Alert_Example.Hide
+  Else 
+    Alert_Example.Show
+    MyAligner.PreviewText.Text = ("Text to show on screen...")
+  Endif
+
+End
+
+Public Sub AlertName_Example_MouseDown()
+
+  AlertName.SetFocus
+  If AlertName.Text <> "" Then 
+    AlertName_Example.Hide
+  Else 
+    AlertName_Example.Show
+  Endif
+
+End
+
+Public Sub Search_Query_Example_MouseDown()
+
+  Search_Query.SetFocus
+  If Search_Query.Text <> "" Then
+    Search_Query_Example.Hide
+  Else 
+    Search_Query_Example.Show
+  Endif
+
+End
+
+Public Sub Translation_Settings_Select()
+
+  If Translation_Settings.Index > -1 Then 
+    TIPicture.Picture = Picture.Load("icon:/huge/book")
+    TIName.Text = BibleSettings[Translation_Settings.Text & "/Description"]
+    TIAbout.Text = Utility.RTFdecode(BibleSettings[Translation_Settings.Text & "/About"], True)
+    TICopy.Text = BibleSettings[Translation_Settings.Text & "/Copyright"]
+    TIAbout.Refresh
+    TIName.Refresh
+    TICopy.Refresh
+  Else 
+    TIPicture.Picture = Picture.Load("icon:/huge/file")
+    TIName.Text = ""
+    TIAbout.Text = ""
+    TICopy.Text = ""
+    TIAbout.Refresh
+    TIName.Refresh
+    TICopy.Refresh
+  Endif 
+
+End
+
+Public Sub STPanel_BeforeArrange()
+
+  STButtons.Move(0, STPanel.H - STButtons.H, STPanel.W, STButtons.H)
+  Translation_Settings.Move(0, 0, STPanel.W, STPanel.H - STButtons.H + 1)
+End
+
+
+
+Public Sub MarginSlider_Change()
+
+  textMargin = MarginSlider.Value
+  SetFont()
+  
+
+End
+
+Public Sub alertMarginSlider_Change()
+
+  alertMargin = alertMarginSlider.Value
+  SetFont()
+
+End

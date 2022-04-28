@@ -1,0 +1,17 @@
+' Gambas class file
+
+Static Public EN As String[] = ["Gen", "Ex", "Lev", "Num", "Deut", 
+"Josh", "Judg", "Ruth", "1 Sam", "2 Sam", "1 Kings", "2 Kings", "1 Chron", "2 Chron", "Ezra", "Neh", "Est",
+"Job", "Ps", "Prov", "Eccles", "Song", "Isa", "Jer", "Lam", "Ezek", "Dan",
+"Hos", "Joel", "Amos", "Obad", "Jonah", "Mic", "Nah", "Hab", "Zeph", "Hag", "Zech", "Mal",
+"Matt", "Mark", "Luke", "John", "Acts",
+"Rom", "1 Cor", "2 Cor", "Gal", "Eph", "Phil", "Col", "1 Thess", "2 Thess", "1 Tim", "2 Tim", "Titus", "Philem",
+"Heb", "James", "1 Pet", "2 Pet", "1 John", "2 John", "3 John", "Jude", "Rev"]
+
+Static Public DA As String[] = ["1Mos", "2Mos", "3Mos", "4Mos", "5Mos", 
+"Jos", "Dom", "Ruth", "1 Sam", "2 Sam", "1 Kong", "2 Kong", "1 Krøn", "2 Krøn", "Ezra", "Neh", "Est",
+"Job", "Sl", "Ordsp", "Præd", "Højs", "Es", "Jer", "Klages", "Ez", "Dan",
+"Hos", "Joel", "Am", "Obad", "Jon", "Mika", "Nah", "Hab", "Sef", "Hagg", "Zak", "Mal",
+"Matt", "Mark", "Luk", "Joh", "ApG",
+"Rom", "1 Kor", "2 Kor", "Gal", "Ef", "Fil", "Kol", "1 Thess", "2 Thess", "1 Tim", "2 Tim", "Tit", "Filem",
+"Hebr", "Jak", "1 Pet", "2 Pet", "1 Joh", "2 Joh", "3 Joh", "Jud", "Åb"]

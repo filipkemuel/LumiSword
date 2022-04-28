@@ -1,0 +1,515 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: LumiSword 3.16.3\n"
+"POT-Creation-Date: 2022-04-28 10:44 UTC\n"
+"PO-Revision-Date: 2021-09-15 14:10 UTC\n"
+"Last-Translator: kemuel <kemuel@HP-Spectre>\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .project:1 FMain.form:170
+msgid "LumiSword"
+msgstr "LumiSword"
+
+#: .project:2
+msgid ""
+"Lumisword is an companion app for \"Floodlight Presenter\" and other types of lyrics-presentation software. It adds the abililty to easily show alerts on top of the slides. It also adds the ability to quickly look-up and show bibleverses.\n"
+"\n"
+"Lumisword is a coding mess, but it gets the job done."
+msgstr ""
+"Lumisword er en hjælpe app til \"Floodlight Presenter\" og andre typer lyrik-presentations-software. Den giver muligheden for nemt at vise beskeder oven på slidesne i andre programmer. Den giver også mulighed for hurtigt at slå bibelvers op og vise dem på skærmen.\n"
+"\n"
+"Lumisword' kode er noget rod, men det klarer opgaven."
+
+#: AlignBox.form:42 FMain.form:1125
+msgid "Text to show on screen"
+msgstr "Tekst der skal vises på skærmen"
+
+#: FMain.class:17
+msgid "VerseLists"
+msgstr "VersListe"
+
+#: FMain.class:41
+msgid "Syntax"
+msgstr "Syntaks"
+
+#: FMain.class:44
+msgid "Result"
+msgstr "Resultat"
+
+#: FMain.class:56
+msgid "*italic*"
+msgstr "*kursiv*"
+
+#: FMain.class:57
+msgid "<i>italic</i>"
+msgstr "<i>kursiv</i>"
+
+#: FMain.class:59
+msgid "**bold**"
+msgstr "**fed**"
+
+#: FMain.class:60
+msgid "<b>bold</b>"
+msgstr "<b>fed</b>"
+
+#: FMain.class:62
+msgid "***bold+italic***"
+msgstr "***fed+kursiv***"
+
+#: FMain.class:63
+msgid "<b><i>bold+italic</i></b>"
+msgstr "<b><i>fed+kursiv</i></b>"
+
+#: FMain.class:77
+msgid "{+2 bigger}"
+msgstr "{+2 større}"
+
+#: FMain.class:78
+msgid "<font size=\"+2\">bigger</font>"
+msgstr "<font size=\"+2\">større</font>"
+
+#: FMain.class:80
+msgid "{-2 smaller}"
+msgstr "{-2 mindre}"
+
+#: FMain.class:81
+msgid "<font size=\"-2\">smaller</font>"
+msgstr "<font size=\"-2\">mindre</font>"
+
+#: FMain.class:83
+msgid "Sp[=8]ce"
+msgstr "Afs[=8]and"
+
+#: FMain.class:84
+msgid "Sp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ce"
+msgstr "Af&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and"
+
+#: FMain.class:93
+msgid "A companion app For \"Floodlight Presenter\" and other types of lyrics-presentation software."
+msgstr "En hjælpeapp til \"Floodlight Presenter\" og andre lignende lyrik-præsentationsprogrammer."
+
+#: FMain.class:102
+msgid "https://eupl.eu/1.2/en/"
+msgstr "https://eupl.eu/1.2/da/"
+
+#: FMain.class:109
+msgid "Created by"
+msgstr "Skrevet af"
+
+#: FMain.class:120
+msgid "Graphics by"
+msgstr "Grafik af"
+
+#: FMain.class:125
+msgid "[Tanslator1 Name]<br/>[Translator2 Name]"
+msgstr "Filip Kemuel"
+
+#: FMain.class:133
+msgid "Translated by"
+msgstr "Oversat af"
+
+#: FMain.class:339
+msgid "Cancel"
+msgstr "Annuller"
+
+#: FMain.class:339
+msgid ""
+"Lumisword is ment to be used on a multimonitor setup.\n"
+" The Viewer will be opened on the same screen as the main window!"
+msgstr ""
+"Lumisword er beregnet til at blive brugt med en multiskærms-opsætning.\n"
+" Viseren vil blive åbnet på samme skærm som hovedvinduet!"
+
+#: FMain.class:339
+msgid "OK"
+msgstr "OK"
+
+#: FMain.class:555
+msgid "Text to show on screen..."
+msgstr "Tekst der skal vises på skærmen..."
+
+#: FMain.class:616
+msgid "Online"
+msgstr "Online"
+
+#: FMain.class:647
+msgid "▾  BookChooser  ▾"
+msgstr "▾  BogVælger  ▾"
+
+#: FMain.class:933
+msgid "Service"
+msgstr "Gudstjeneste"
+
+#: FMain.form:179
+msgid "Scripture"
+msgstr "Skriftsteder"
+
+#: FMain.form:204
+msgid "Exodus"
+msgstr "2 Mosebog"
+
+#: FMain.form:214
+msgid "Leviticus"
+msgstr "3 Mosebog"
+
+#: FMain.form:224
+msgid "Numbers"
+msgstr "4 Mosebog"
+
+#: FMain.form:234
+msgid "Deuteronomy"
+msgstr "5 Mosebog"
+
+#: FMain.form:244
+msgid "Joshua"
+msgstr "Josva"
+
+#: FMain.form:254
+msgid "Judges"
+msgstr "Dommer"
+
+#: FMain.form:264
+msgid "Ruth"
+msgstr "Ruth"
+
+#: FMain.form:274
+msgid "1 Samuel"
+msgstr "1 Samuel"
+
+#: FMain.form:284
+msgid "Esther"
+msgstr "Ester"
+
+#: FMain.form:294
+msgid "2"
+msgstr "2"
+
+#: FMain.form:314
+msgid "1 Kings"
+msgstr "1 Konge"
+
+#: FMain.form:334
+msgid "1 Chronicles"
+msgstr "1 Krønnike"
+
+#: FMain.form:344
+msgid "Ezra"
+msgstr "Exra"
+
+#: FMain.form:354
+msgid "Nehemiah"
+msgstr "Nehemias"
+
+#: FMain.form:364
+msgid "Job"
+msgstr "Job"
+
+#: FMain.form:374
+msgid "Psalms"
+msgstr "Salmerne"
+
+#: FMain.form:384
+msgid "Ecclesiastes"
+msgstr "Prædikeren"
+
+#: FMain.form:394
+msgid "Proverbs"
+msgstr "Ordsprogene"
+
+#: FMain.form:404
+msgid "Song of Songs"
+msgstr "Højsangen"
+
+#: FMain.form:414
+msgid "Daniel"
+msgstr "Daniel"
+
+#: FMain.form:424
+msgid "Ezekiel"
+msgstr "Ezekiel"
+
+#: FMain.form:434
+msgid "Jeremiah"
+msgstr "Jeremias"
+
+#: FMain.form:444
+msgid "Isaiah"
+msgstr "Esajas"
+
+#: FMain.form:454
+msgid "Lament"
+msgstr "Klagesang"
+
+#: FMain.form:464
+msgid "Hoseah"
+msgstr "Hosea"
+
+#: FMain.form:474
+msgid "Joel"
+msgstr "Joel"
+
+#: FMain.form:484
+msgid "Obadiah"
+msgstr "Obadias"
+
+#: FMain.form:494
+msgid "Amos"
+msgstr "Amos"
+
+#: FMain.form:504
+msgid "Habakkuk"
+msgstr "Habakkuk"
+
+#: FMain.form:514
+msgid "Nahum"
+msgstr "Nahum"
+
+#: FMain.form:524
+msgid "Michah"
+msgstr "Mikas"
+
+#: FMain.form:534
+msgid "Jonah"
+msgstr "Jonas"
+
+#: FMain.form:544
+msgid "Malachi"
+msgstr "Malakias"
+
+#: FMain.form:554
+msgid "Zechariah"
+msgstr "Zakarias"
+
+#: FMain.form:564
+msgid "Haggai"
+msgstr "Haggaj"
+
+#: FMain.form:574
+msgid "Zephaniah"
+msgstr "Sefanias"
+
+#: FMain.form:584
+msgid "Matthew"
+msgstr "Matthæus"
+
+#: FMain.form:594
+msgid "Mark"
+msgstr "Markus"
+
+#: FMain.form:604
+msgid "John"
+msgstr "Johannes"
+
+#: FMain.form:614
+msgid "Acts"
+msgstr "ApG"
+
+#: FMain.form:624
+msgid "Romans"
+msgstr "Romerne"
+
+#: FMain.form:634
+msgid "1 Corinthians"
+msgstr "1 Korinther"
+
+#: FMain.form:644
+msgid "Galatians"
+msgstr "Galaterne"
+
+#: FMain.form:654
+msgid "Ephesians"
+msgstr "Efeserne"
+
+#: FMain.form:664
+msgid "1 Timotheus"
+msgstr "1 Timotheus"
+
+#: FMain.form:674
+msgid "1 Thessalonians"
+msgstr "1 Thessaloniker"
+
+#: FMain.form:684
+msgid "Colossians"
+msgstr "Kolossenser"
+
+#: FMain.form:694
+msgid "Philemon"
+msgstr "Filemon"
+
+#: FMain.form:704
+msgid "Titus"
+msgstr "Titus"
+
+#: FMain.form:754
+msgid "Hebrews"
+msgstr "Hebræerne"
+
+#: FMain.form:764
+msgid "James"
+msgstr "Jakob"
+
+#: FMain.form:774
+msgid "1 Peter"
+msgstr "1 Peter"
+
+#: FMain.form:784
+msgid "1 John"
+msgstr "1 Johannes"
+
+#: FMain.form:794
+msgid "Jude"
+msgstr "Judas"
+
+#: FMain.form:804
+msgid "Revelation"
+msgstr "Åbenbaringen"
+
+#: FMain.form:824
+msgid "3"
+msgstr "3"
+
+#: FMain.form:844
+msgid "Luke"
+msgstr "Lukas"
+
+#: FMain.form:854
+msgid "Genesis"
+msgstr "1 Mosebog"
+
+#: FMain.form:861
+msgid "▴  BookChooser  ▴"
+msgstr "▴  BogVælger  ▴"
+
+#: FMain.form:887
+msgid "Type bible reference. ex: Joh 3:16-17"
+msgstr "Skriv en bibelreference. f.eks: Joh 3,16-17"
+
+#: FMain.form:894
+msgid "Choose Translation"
+msgstr "Vælg oversættelse"
+
+#: FMain.form:939
+msgid "Set font color"
+msgstr "Sæt skriftfarven"
+
+#: FMain.form:949
+msgid "Increase font size"
+msgstr "Gør skriften større"
+
+#: FMain.form:955
+msgid "Decrease font size"
+msgstr "Gør skriften mindre"
+
+#: FMain.form:968
+msgid "Add search query to list"
+msgstr "Tilføj søge-reference til listen"
+
+#: FMain.form:974
+msgid "Remove selected verses from list"
+msgstr "Fjern valgte vers fra listen"
+
+#: FMain.form:980
+msgid "Clear the verselist"
+msgstr "Rens verselisten"
+
+#: FMain.form:990
+msgid "Close verselist"
+msgstr "Luk Verselisten"
+
+#: FMain.form:996
+msgid "Open verselist"
+msgstr "Åbn Verseliste"
+
+#: FMain.form:1008
+msgid "Joh 3:16-17"
+msgstr "Joh 3:16-17"
+
+#: FMain.form:1023
+msgid "Alerts"
+msgstr "Beskeder"
+
+#: FMain.form:1131
+msgid "Name for the menu"
+msgstr "Navn til menuen"
+
+#: FMain.form:1136
+msgid "Get syntax help"
+msgstr "Få syntakshjælp"
+
+#: FMain.form:1143
+msgid "Settings"
+msgstr "Indstillinger"
+
+#: FMain.form:1155
+msgid "♡ Standard Translation ♡"
+msgstr "♡ Standard Bibel ♡"
+
+#: FMain.form:1197
+msgid "Set as standard translation"
+msgstr "Sæt som standardoversættelse"
+
+#: FMain.form:1207
+msgid "Add new translation to list"
+msgstr "Tilføj ny oversættelse til listen"
+
+#: FMain.form:1213
+msgid "Remove Selected translation from list"
+msgstr "Fjern valgte oversættelse fra listen"
+
+#: FMain.form:1224
+msgid "Scripture font: "
+msgstr "Skriftstedsskrifttype:"
+
+#: FMain.form:1235
+msgid "Bookerly,43"
+msgstr "Bookerly,43"
+
+#: FMain.form:1242 TranslationSelect.form:43
+msgid "Info"
+msgstr "Info"
+
+#: FMain.form:1274
+msgid "Text Margin"
+msgstr "Tekstmargen"
+
+#: FMain.form:1291
+msgid "Alert font:"
+msgstr "Beskedsskrifttype:"
+
+#: FMain.form:1324
+msgid "About"
+msgstr "Om"
+
+#: FMain.form:1359
+msgid "This software is licensed under the:&nbsp;"
+msgstr "Denne software er licenseret under:&nbsp;"
+
+#: FMain.form:1393
+msgid "Offline"
+msgstr "Offline"
+
+#: TranslationSelect.form:91
+msgid "Add"
+msgstr "Tilføj"
+
+#: TranslationSelect.form:97
+msgid "Close"
+msgstr "Luk"
+
+#: Viewer.form:40
+msgid ""
+"<H1>Wayland Detected</h1>\n"
+"<p>LumiSword does not have the ability to automaticly move the window to the second monitor on wayland. </p>\n"
+"<p>Move this window to the desired monitor and then press the \"<b>Set up Viewer</b>\" button</p>"
+msgstr ""
+"<h1>Wayland detekteret</h1>\n"
+"<p>LumiSword har ikke evnen til automatisk at flytte vinduet til den anden skærm under wayland. </p>\n"
+"<p>Flyt dette vindue til den ønskede skærm og tryk så på knppen \"<b>Opsæt Viser</b>\"</p>"
+
+#: Viewer.form:47
+msgid "Set up Viewer"
+msgstr "Opsæt Viser"

@@ -1,0 +1,74 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,99,64)
+  Arrangement = Arrange.Fill
+  { MainPanel Panel
+    MoveScaled(0,0,98.8889,65)
+    Arrangement = Arrange.Horizontal
+    { IconView1 IconView
+      MoveScaled(0,0,47,65)
+      Expand = True
+      IconLines = 3
+    }
+    { Panel1 Panel
+      MoveScaled(47,0,53,65)
+      Expand = True
+      Arrangement = Arrange.Vertical
+      Padding = 5
+      { TabPanel1 TabPanel
+        MoveScaled(0,0,50,57)
+        Expand = True
+        Index = 0
+        Text = ("Info")
+        { PictureBox1 PictureBox
+          MoveScaled(1,2.2222,7,8)
+          Picture = Picture["icon:/huge/file"]
+        }
+        { Label3 Label
+          MoveScaled(41,49,7,3)
+          Font = Font["Bold,+3"]
+          Alignment = Align.Right
+        }
+        { Label1 TextLabel
+          MoveScaled(7.4444,3.4444,41,5)
+          Font = Font["Bold,+1"]
+          Alignment = Align.BottomLeft
+        }
+        { Label4 TextLabel
+          MoveScaled(2,44,47,7)
+          Font = Font["Bold,-2"]
+          Alignment = Align.BottomLeft
+        }
+        { ScrollView1 ScrollView
+          MoveScaled(1,10,47,36)
+          Border = False
+          { Label2 TextLabel
+            MoveScaled(1,0,43,28.8889)
+            Font = Font["Bold,-1"]
+            AutoResize = True
+            Alignment = Align.TopLeft
+          }
+        }
+        Index = 0
+      }
+      { ActionButtons_parent HBox
+        MoveScaled(1,57,49,5)
+        Invert = True
+        { ActionButtons Panel
+          MoveScaled(0,0,33,5)
+          { ButtonAdd Button
+            MoveScaled(17,1,16,4)
+            Text = ("Add")
+            Picture = Picture["icon:/small/ok"]
+          }
+          { ButtonCancel Button
+            MoveScaled(0,1,16,4)
+            Text = ("Close")
+            Picture = Picture["icon:/small/close"]
+          }
+        }
+      }
+    }
+  }
+}

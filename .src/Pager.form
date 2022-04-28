@@ -1,0 +1,11 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,96,4)
+  Arrangement = Arrange.Fill
+  { PagerPanel Panel
+    MoveScaled(0,0,96,4)
+    Arrangement = Arrange.Horizontal
+    Centered = True
+  }
+}

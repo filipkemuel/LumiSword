@@ -1,0 +1,115 @@
+' Gambas class file
+
+ Public myBibles As Settings
+ 
+ 
+Public Sub Form_Open()
+
+  Dim sSlot As String
+  FMain.Make_Sword_List()
+  myBibles = New Settings(User.Home & "/.config/bibler.conf")
+  
+  For Each sSlot In myBibles.Keys
+    IconView1.Add(sSlot, sSlot & "\n - " & myBibles[sSlot & "/Description"], Picture.Load("icon:/huge/book"))
+  Next
+  ButtonAdd.Enabled = False
+End
+
+Public Sub Form_Show()
+  
+  Me.Resize(700, 500)
+  TabPanel1_BeforeArrange()
+  
+End
+
+Public Sub form_Resize()
+  
+  TabPanel1_BeforeArrange()
+  
+End
+
+
+
+Public Sub IconView1_Click()
+
+  PictureBox1.Picture = IconView1.Current.Picture
+  Label1.Text = IconView1.Current.Key & ": " & myBibles[IconView1.Current.Key & "/Description"]
+  Label2.Text = Utility.RTFdecode(myBibles[IconView1.Current.key & "/About"])
+  Label2.Width = 350
+  Label3.Text = myBibles[IconView1.Current.key & "/Lang"]
+  Label4.Text = myBibles[IconView1.Current.key & "/Copyright"]
+  ButtonAdd.Enabled = True
+  TabPanel1_BeforeArrange()
+
+End
+
+Public Sub IconView1_Select()
+  
+  PictureBox1.Picture = IconView1.Current.Picture
+  Label1.Text = IconView1.Current.Key & ": " & myBibles[IconView1.Current.Key & "/Description"]
+  Label2.Text = Utility.RTFdecode(myBibles[IconView1.Current.key & "/About"])
+  Label2.Width = 350
+  Label3.Text = myBibles[IconView1.Current.key & "/Lang"]
+  Label4.Text = myBibles[IconView1.Current.key & "/Copyright"]
+  ButtonAdd.Enabled = True
+  TabPanel1_BeforeArrange()
+  
+End
+
+Public Sub IconView1_Activate()
+  
+  ' Save Code Here
+  If Not FMain.Bibles.Exist(IconView1.Current.Key) Then
+    FMain.Bibles.Add(myBibles[IconView1.Current.key & "/Lang"], IconView1.Current.Key)
+    FMain.Translation.Add(IconView1.Current.Key)
+    FMain.Translation_Settings.Add(IconView1.Current.Key)
+    FMain.BibleSettings = myBibles
+    Message.Info(IconView1.Current.Key & " Suscessfully added to the list!", "OK")
+    FMain.Translation_Settings_Select()
+  Else 
+    Message.Error(IconView1.Current.Key & " Is already in the list!", "OK")
+  Endif
+
+End
+
+Public Sub IconView1_KeyPress()
+  
+  If Key.Code = Key.Return Then
+    IconView1_Activate()
+    Stop Event 
+  Endif
+  
+End
+
+
+
+Public Sub ButtonAdd_Click()
+
+  IconView1_Activate()
+
+End
+
+
+
+Public Sub ButtonCancel_Click()
+
+  Me.Close
+
+End
+
+Public Sub Panel1_BeforeArrange()
+
+  ActionButtons_parent.W = (Panel1.ClientW)
+
+End
+
+Public Sub TabPanel1_BeforeArrange()
+
+  PictureBox1.Move(8, 8)
+  Label1.Move(PictureBox1.X + PictureBox1.W, PictureBox1.Y + 5, Label1.Parent.ClientW - PictureBox1.W - 16, PictureBox1.H - 12)
+  ScrollView1.Move(PictureBox1.X, PictureBox1.H + 8, ScrollView1.Parent.ClientW - 16, ScrollView1.Parent.ClientH - PictureBox1.h - 16 - 4 * Desktop.Scale)
+  Label2.W = Label2.Parent.ClientW - 8
+  Label4.Move(PictureBox1.X, Label4.Parent.ClientH - Label4.H - 8, Label4.Parent.ClientW - 16, 4 * Desktop.Scale)
+  Label3.Move(Label3.Parent.ClientW - Label3.W - 8, Label3.Parent.ClientH - Label3.H - 8)
+End
+

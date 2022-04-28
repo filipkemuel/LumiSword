@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Name=[EN] LumiSword
+Comment=Lumisword is an companion app for "Floodlight Presenter" and other types of lyrics-presentation software. It adds the abililty to easily show alerts on top of the slides. It also adds the ability to quickly look-up and show bibleverses. Lumisword is a coding mess, but it gets the job done.
+Exec=env LANG=en LumiSword
+Icon=LumiSword
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=X-RedHat-Extra;Office;Presentation;
+MimeType=text/verselist
+Name[da]=[EN] LumiSword

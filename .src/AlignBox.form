@@ -1,0 +1,102 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,92,67)
+  Centered = True
+  { MainPanel Panel
+    MoveScaled(0,0,50.8889,39.8889)
+    { !Monitor PictureBox
+      MoveScaled(0,0,50,39)
+      #Public = True
+      Picture = Picture["images/Monitor.svg"]
+      Stretch = True
+    }
+    { !Wallpaper PictureBox
+      MoveScaled(1,1,48,27)
+      #Public = True
+      Picture = Picture["images/vapor.jpg"]
+      Stretch = True
+    }
+    { !PreviewText TextLabel
+      MoveScaled(1,1,48,27)
+      #Public = True
+      Font = Font["8"]
+      Foreground = &HFFFFFF&
+      Padding = 2
+      Text = ("Text to show on screen") & "..."
+      Alignment = Align.BottomRight
+    }
+    { AlignBR Button AlignButtons
+      Name = "AlignBR"
+      MoveScaled(33,19,16,9)
+      Font = Font["Milibus"]
+      Background = Color.Transparent
+      Tag = "BR"
+      Border = False
+    }
+    { AlignB Button AlignButtons
+      Name = "AlignB"
+      MoveScaled(17,19,16,9)
+      Font = Font["Milibus"]
+      Background = Color.Transparent
+      Tag = "B"
+      Border = False
+    }
+    { AlignR Button AlignButtons
+      Name = "AlignR"
+      MoveScaled(33,10,16,9)
+      Font = Font["Milibus"]
+      Background = Color.Transparent
+      Tag = "R"
+      Border = False
+    }
+    { AlignC Button AlignButtons
+      Name = "AlignC"
+      MoveScaled(17,10,16,9)
+      Font = Font["Milibus"]
+      Background = Color.Transparent
+      Tag = "C"
+      Border = False
+    }
+    { AlignTR Button AlignButtons
+      Name = "AlignTR"
+      MoveScaled(33,1,16,9)
+      Font = Font["Milibus"]
+      Background = Color.Transparent
+      Tag = "TR"
+      Border = False
+    }
+    { AlignT Button AlignButtons
+      Name = "AlignT"
+      MoveScaled(17,1,16,9)
+      Font = Font["Milibus"]
+      Background = Color.Transparent
+      Tag = "T"
+      Border = False
+    }
+    { AlignTL Button AlignButtons
+      Name = "AlignTL"
+      MoveScaled(1,1,16,9)
+      Font = Font["Milibus"]
+      Background = Color.Transparent
+      Tag = "TL"
+      Border = False
+    }
+    { AlignL Button AlignButtons
+      Name = "AlignL"
+      MoveScaled(1,10,16,9)
+      Font = Font["Milibus"]
+      Background = Color.Transparent
+      Tag = "L"
+      Border = False
+    }
+    { AlignBL Button AlignButtons
+      Name = "AlignBL"
+      MoveScaled(1,19,16,9)
+      Font = Font["Milibus"]
+      Background = Color.Transparent
+      Tag = "BL"
+      Border = False
+    }
+  }
+}

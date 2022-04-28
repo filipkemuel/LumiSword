@@ -1,0 +1,1073 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,117,98)
+  Text = ("LumiSword")
+  { TabStrip1 TabStrip
+    MoveScaled(0,0,117,98)
+    Background = Color.ButtonBackground
+    Arrangement = Arrange.Fill
+    Count = 4
+    Orientation = Align.Bottom
+    Index = 0
+    Text = ("Scripture")
+    Picture = Picture["icon:/medium/book"]
+    { Panel5 Panel
+      MoveScaled(0,0,121.8889,98.8889)
+      { BookChooserWrapper Panel
+        MoveScaled(0,0,117,31)
+        Arrangement = Arrange.Horizontal
+        Centered = True
+        { BookChooser Panel
+          MoveScaled(0,0,116.4444,31.1111)
+          Background = Color.ButtonBackground
+          { BookButtonPanel Panel
+            MoveScaled(0.8889,0.7778,115,28)
+            { Book_Exod Button BookChoice
+              Name = "Book_Exod"
+              MoveScaled(0,5.5556,13.3333,5.4444)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H63452C&
+              Foreground = &H0EFFFFFF&
+              Tag = "2"
+              Text = ("Exodus")
+            }
+            { Book_Lev Button BookChoice
+              Name = "Book_Lev"
+              MoveScaled(0,11.1111,13.3333,5.4444)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H63452C&
+              Foreground = &H0EFFFFFF&
+              Tag = "3"
+              Text = ("Leviticus")
+            }
+            { Book_Num Button BookChoice
+              Name = "Book_Num"
+              MoveScaled(0,16.6667,13.3333,5.4444)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H63452C&
+              Foreground = &H0EFFFFFF&
+              Tag = "4"
+              Text = ("Numbers")
+            }
+            { Book_Deut Button BookChoice
+              Name = "Book_Deut"
+              MoveScaled(0,22.2222,13.3333,5.4444)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H63452C&
+              Foreground = &H0EFFFFFF&
+              Tag = "5"
+              Text = ("Deuteronomy")
+            }
+            { Book_Josh Button BookChoice
+              Name = "Book_Josh"
+              MoveScaled(13.4444,0.1111,17.8889,3.3333)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H865E3C&
+              Foreground = &H0EFFFFFF&
+              Tag = "6"
+              Text = ("Joshua")
+            }
+            { Book_Jugd Button BookChoice
+              Name = "Book_Jugd"
+              MoveScaled(13.4444,3.5556,17.8889,3.3333)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H865E3C&
+              Foreground = &H0EFFFFFF&
+              Tag = "7"
+              Text = ("Judges")
+            }
+            { Book_Ruth Button BookChoice
+              Name = "Book_Ruth"
+              MoveScaled(13.4444,7,17.8889,3.3333)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H865E3C&
+              Foreground = &H0EFFFFFF&
+              Tag = "8"
+              Text = ("Ruth")
+            }
+            { Book_1Sam Button BookChoice
+              Name = "Book_1Sam"
+              MoveScaled(13.4444,10.4444,13.3333,3.3333)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H865E3C&
+              Foreground = &H0EFFFFFF&
+              Tag = "9"
+              Text = ("1 Samuel")
+            }
+            { Book_Esth Button BookChoice
+              Name = "Book_Esth"
+              MoveScaled(13.4444,24.2222,17.8889,3.3333)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H865E3C&
+              Foreground = &H0EFFFFFF&
+              Tag = "17"
+              Text = ("Esther")
+            }
+            { Book_2Sam Button BookChoice
+              Name = "Book_2Sam"
+              MoveScaled(26.8889,10.4444,4.4444,3.3333)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H865E3C&
+              Foreground = &H0EFFFFFF&
+              Tag = "10"
+              Text = ("2")
+            }
+            { Book_2Kgs Button BookChoice
+              Name = "Book_2Kgs"
+              MoveScaled(26.8889,13.8889,4.4444,3.3333)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H865E3C&
+              Foreground = &H0EFFFFFF&
+              Tag = "12"
+              Text = ("2")
+            }
+            { Book_1Kgs Button BookChoice
+              Name = "Book_1Kgs"
+              MoveScaled(13.4444,13.8889,13.3333,3.3333)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H865E3C&
+              Foreground = &H0EFFFFFF&
+              Tag = "11"
+              Text = ("1 Kings")
+            }
+            { Book_2Chr Button BookChoice
+              Name = "Book_2Chr"
+              MoveScaled(26.8889,17.3333,4.4444,3.3333)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H865E3C&
+              Foreground = &H0EFFFFFF&
+              Tag = "14"
+              Text = ("2")
+            }
+            { Book_1Chr Button BookChoice
+              Name = "Book_1Chr"
+              MoveScaled(13.4444,17.3333,13.3333,3.3333)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H865E3C&
+              Foreground = &H0EFFFFFF&
+              Tag = "13"
+              Text = ("1 Chronicles")
+            }
+            { Book_Ezra Button BookChoice
+              Name = "Book_Ezra"
+              MoveScaled(13.4444,20.7778,7.7778,3.3333)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H865E3C&
+              Foreground = &H0EFFFFFF&
+              Tag = "15"
+              Text = ("Ezra")
+            }
+            { Book_Neh Button BookChoice
+              Name = "Book_Neh"
+              MoveScaled(21.3333,20.7778,10,3.3333)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H865E3C&
+              Foreground = &H0EFFFFFF&
+              Tag = "16"
+              Text = ("Nehemiah")
+            }
+            { Book_Job Button BookChoice
+              Name = "Book_Job"
+              MoveScaled(31.5556,0.1111,17.8889,2.8889)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &HA51D2D&
+              Foreground = &H0EFFFFFF&
+              Tag = "18"
+              Text = ("Job")
+            }
+            { Book_Ps Button BookChoice
+              Name = "Book_Ps"
+              MoveScaled(31.5556,3.2222,17.8889,2.8889)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &HA51D2D&
+              Foreground = &H0EFFFFFF&
+              Tag = "19"
+              Text = ("Psalms")
+            }
+            { Book_Eccl Button BookChoice
+              Name = "Book_Eccl"
+              MoveScaled(31.5556,9.4444,17.8889,2.8889)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &HA51D2D&
+              Foreground = &H0EFFFFFF&
+              Tag = "21"
+              Text = ("Ecclesiastes")
+            }
+            { Book_Prov Button BookChoice
+              Name = "Book_Prov"
+              MoveScaled(31.5556,6.3333,17.8889,2.8889)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &HA51D2D&
+              Foreground = &H0EFFFFFF&
+              Tag = "20"
+              Text = ("Proverbs")
+            }
+            { Book_Song Button BookChoice
+              Name = "Book_Song"
+              MoveScaled(31.5556,12.5556,17.8889,2.8889)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &HA51D2D&
+              Foreground = &H0EFFFFFF&
+              Tag = "22"
+              Text = ("Song of Songs")
+            }
+            { Book_Dan Button BookChoice
+              Name = "Book_Dan"
+              MoveScaled(31.5556,24.6667,17.8889,2.8889)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H813D9C&
+              Foreground = &H0EFFFFFF&
+              Tag = "27"
+              Text = ("Daniel")
+            }
+            { Book_Ezek Button BookChoice
+              Name = "Book_Ezek"
+              MoveScaled(31.5556,21.6667,17.8889,2.8889)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H813D9C&
+              Foreground = &H0EFFFFFF&
+              Tag = "26"
+              Text = ("Ezekiel")
+            }
+            { Book_Jer Button BookChoice
+              Name = "Book_Jer"
+              MoveScaled(31.5556,18.6667,8.8889,2.8889)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H813D9C&
+              Foreground = &H0EFFFFFF&
+              Tag = "24"
+              Text = ("Jeremiah")
+            }
+            { Book_Isa Button BookChoice
+              Name = "Book_Isa"
+              MoveScaled(31.5556,15.6667,17.8889,2.8889)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H813D9C&
+              Foreground = &H0EFFFFFF&
+              Tag = "23"
+              Text = ("Isaiah")
+            }
+            { Book_Lam Button BookChoice
+              Name = "Book_Lam"
+              MoveScaled(40.5556,18.6667,8.8889,2.8889)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H813D9C&
+              Foreground = &H0EFFFFFF&
+              Tag = "25"
+              Text = ("Lament")
+            }
+            { Book_Hos Button BookChoice
+              Name = "Book_Hos"
+              MoveScaled(49.6667,0.1111,11.1111,2.1111)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H613583&
+              Foreground = &H0EFFFFFF&
+              Tag = "28"
+              Text = ("Hoseah")
+            }
+            { Book_Joel Button BookChoice
+              Name = "Book_Joel"
+              MoveScaled(49.6667,2.4444,11.1111,2.1111)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H613583&
+              Foreground = &H0EFFFFFF&
+              Tag = "29"
+              Text = ("Joel")
+            }
+            { Book_Obad Button BookChoice
+              Name = "Book_Obad"
+              MoveScaled(49.6667,7.1111,11.1111,2.1111)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H613583&
+              Foreground = &H0EFFFFFF&
+              Tag = "31"
+              Text = ("Obadiah")
+            }
+            { Book_Amos Button BookChoice
+              Name = "Book_Amos"
+              MoveScaled(49.6667,4.7778,11.1111,2.1111)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H613583&
+              Foreground = &H0EFFFFFF&
+              Tag = "30"
+              Text = ("Amos")
+            }
+            { Book_Hab Button BookChoice
+              Name = "Book_Hab"
+              MoveScaled(49.6667,16.4444,11.1111,2.1111)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H613583&
+              Foreground = &H0EFFFFFF&
+              Tag = "35"
+              Text = ("Habakkuk")
+            }
+            { Book_Nahum Button BookChoice
+              Name = "Book_Nahum"
+              MoveScaled(49.6667,14.1111,11.1111,2.1111)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H613583&
+              Foreground = &H0EFFFFFF&
+              Tag = "34"
+              Text = ("Nahum")
+            }
+            { Book_Mic Button BookChoice
+              Name = "Book_Mic"
+              MoveScaled(49.6667,11.7778,11.1111,2.1111)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H613583&
+              Foreground = &H0EFFFFFF&
+              Tag = "33"
+              Text = ("Michah")
+            }
+            { Book_Jonah Button BookChoice
+              Name = "Book_Jonah"
+              MoveScaled(49.6667,9.4444,11.1111,2.1111)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H613583&
+              Foreground = &H0EFFFFFF&
+              Tag = "32"
+              Text = ("Jonah")
+            }
+            { Book_Mal Button BookChoice
+              Name = "Book_Mal"
+              MoveScaled(49.6667,25.4444,11.1111,2.1111)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H613583&
+              Foreground = &H0EFFFFFF&
+              Tag = "39"
+              Text = ("Malachi")
+            }
+            { Book_Zech Button BookChoice
+              Name = "Book_Zech"
+              MoveScaled(49.6667,23.2222,11.1111,2.1111)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H613583&
+              Foreground = &H0EFFFFFF&
+              Tag = "38"
+              Text = ("Zechariah")
+            }
+            { Book_Hag Button BookChoice
+              Name = "Book_Hag"
+              MoveScaled(49.6667,21,11.1111,2.1111)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H613583&
+              Foreground = &H0EFFFFFF&
+              Tag = "37"
+              Text = ("Haggai")
+            }
+            { Book_Zeph Button BookChoice
+              Name = "Book_Zeph"
+              MoveScaled(49.6667,18.7778,11.1111,2.1111)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H613583&
+              Foreground = &H0EFFFFFF&
+              Tag = "36"
+              Text = ("Zephaniah")
+            }
+            { Book_Matt Button BookChoice
+              Name = "Book_Matt"
+              MoveScaled(60.8889,0,13.3333,5.4444)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H1A5FB4&
+              Foreground = &H0EFFFFFF&
+              Tag = "40"
+              Text = ("Matthew")
+            }
+            { Book_Mark Button BookChoice
+              Name = "Book_Mark"
+              MoveScaled(60.8889,5.5556,13.3333,5.4444)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H1A5FB4&
+              Foreground = &H0EFFFFFF&
+              Tag = "41"
+              Text = ("Mark")
+            }
+            { Book_John Button BookChoice
+              Name = "Book_John"
+              MoveScaled(60.8889,16.6667,13.3333,5.4444)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H1A5FB4&
+              Foreground = &H0EFFFFFF&
+              Tag = "43"
+              Text = ("John")
+            }
+            { Book_Acts Button BookChoice
+              Name = "Book_Acts"
+              MoveScaled(60.8889,22.2222,13.3333,5.4444)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H1A5FB4&
+              Foreground = &H0EFFFFFF&
+              Tag = "44"
+              Text = ("Acts")
+            }
+            { Book_Rom Button BookChoice
+              Name = "Book_Rom"
+              MoveScaled(74.3333,0.1111,20.1111,2.5556)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H26A269&
+              Foreground = &H0EFFFFFF&
+              Tag = "45"
+              Text = ("Romans")
+            }
+            { Book_1Cor Button BookChoice
+              Name = "Book_1Cor"
+              MoveScaled(74.3333,2.7778,15.5556,2.7778)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H26A269&
+              Foreground = &H0EFFFFFF&
+              Tag = "46"
+              Text = ("1 Corinthians")
+            }
+            { Book_Gal Button BookChoice
+              Name = "Book_Gal"
+              MoveScaled(74.3333,5.6667,20.1111,2.5556)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H26A269&
+              Foreground = &H0EFFFFFF&
+              Tag = "48"
+              Text = ("Galatians")
+            }
+            { Book_Eph Button BookChoice
+              Name = "Book_Eph"
+              MoveScaled(74.3333,8.3333,20.1111,2.6667)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H26A269&
+              Foreground = &H0EFFFFFF&
+              Tag = "49"
+              Text = ("Ephesians")
+            }
+            { Book_1Tim Button BookChoice
+              Name = "Book_1Tim"
+              MoveScaled(74.3333,19.3333,15.5556,2.7778)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H26A269&
+              Foreground = &H0EFFFFFF&
+              Tag = "54"
+              Text = ("1 Timotheus")
+            }
+            { Book_1Thess Button BookChoice
+              Name = "Book_1Thess"
+              MoveScaled(74.3333,16.4444,15.5556,2.7778)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H26A269&
+              Foreground = &H0EFFFFFF&
+              Tag = "52"
+              Text = ("1 Thessalonians")
+            }
+            { Book_Col Button BookChoice
+              Name = "Book_Col"
+              MoveScaled(74.3333,13.7778,20.1111,2.5556)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H26A269&
+              Foreground = &H0EFFFFFF&
+              Tag = "51"
+              Text = ("Colossians")
+            }
+            { Book_Phil Button BookChoice
+              Name = "Book_Phil"
+              MoveScaled(74.3333,11.1111,20.1111,2.5556)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H26A269&
+              Foreground = &H0EFFFFFF&
+              Tag = "50"
+              Text = ("Philemon")
+            }
+            { Book_Titus Button BookChoice
+              Name = "Book_Titus"
+              MoveScaled(74.4444,22.2222,20.1111,2.5556)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H26A269&
+              Foreground = &H0EFFFFFF&
+              Tag = "56"
+              Text = ("Titus")
+            }
+            { Book_Philem Button BookChoice
+              Name = "Book_Philem"
+              MoveScaled(74.4444,24.8889,20.1111,2.6667)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H26A269&
+              Foreground = &H0EFFFFFF&
+              Tag = "57"
+              Text = ("Philemon")
+            }
+            { Book_2Cor Button BookChoice
+              Name = "Book_2Cor"
+              MoveScaled(90,2.7778,4.4444,2.7778)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H26A269&
+              Foreground = &H0EFFFFFF&
+              Tag = "47"
+              Text = ("2")
+            }
+            { Book_2Thess Button BookChoice
+              Name = "Book_2Thess"
+              MoveScaled(90,16.4444,4.4444,2.7778)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H26A269&
+              Foreground = &H0EFFFFFF&
+              Tag = "53"
+              Text = ("2")
+            }
+            { Book_2tim Button BookChoice
+              Name = "Book_2tim"
+              MoveScaled(90,19.3333,4.4444,2.7778)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H26A269&
+              Foreground = &H0EFFFFFF&
+              Tag = "55"
+              Text = ("2")
+            }
+            { Book_Heb Button BookChoice
+              Name = "Book_Heb"
+              MoveScaled(94.5556,0,20,4.4444)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H247B52&
+              Foreground = &H0EFFFFFF&
+              Tag = "58"
+              Text = ("Hebrews")
+            }
+            { Book_Jas Button BookChoice
+              Name = "Book_Jas"
+              MoveScaled(94.5556,4.5556,20,4.4444)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H247B52&
+              Foreground = &H0EFFFFFF&
+              Tag = "59"
+              Text = ("James")
+            }
+            { Book_1Pet Button BookChoice
+              Name = "Book_1Pet"
+              MoveScaled(94.5556,9.1111,15.4444,4.5556)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H247B52&
+              Foreground = &H0EFFFFFF&
+              Tag = "60"
+              Text = ("1 Peter")
+            }
+            { Book_1John Button BookChoice
+              Name = "Book_1John"
+              MoveScaled(94.5556,13.7778,12.1111,4.4444)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H247B52&
+              Foreground = &H0EFFFFFF&
+              Tag = "62"
+              Text = ("1 John")
+            }
+            { Book_Jud Button BookChoice
+              Name = "Book_Jud"
+              MoveScaled(94.5556,18.3333,20,4.5556)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H247B52&
+              Foreground = &H0EFFFFFF&
+              Tag = "65"
+              Text = ("Jude")
+            }
+            { Book_Rev Button BookChoice
+              Name = "Book_Rev"
+              MoveScaled(94.6667,23,20,4.5556)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H1A5FB4&
+              Foreground = &H0EFFFFFF&
+              Tag = "66"
+              Text = ("Revelation")
+            }
+            { Book_2Pet Button BookChoice
+              Name = "Book_2Pet"
+              MoveScaled(110.1111,9.1111,4.4444,4.5556)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H247B52&
+              Foreground = &H0EFFFFFF&
+              Tag = "61"
+              Text = ("2")
+            }
+            { Book_3John Button BookChoice
+              Name = "Book_3John"
+              MoveScaled(110.6667,13.7778,3.8889,4.4444)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H247B52&
+              Foreground = &H0EFFFFFF&
+              Tag = "64"
+              Text = ("3")
+            }
+            { Book_2John Button BookChoice
+              Name = "Book_2John"
+              MoveScaled(106.7778,13.7778,3.8889,4.4444)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H247B52&
+              Foreground = &H0EFFFFFF&
+              Tag = "63"
+              Text = ("2")
+            }
+            { Book_Luke Button BookChoice
+              Name = "Book_Luke"
+              MoveScaled(60.8889,11.1111,13.3333,5.4444)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H1A5FB4&
+              Foreground = &H0EFFFFFF&
+              Tag = "42"
+              Text = ("Luke")
+            }
+            { Book_Gen Button BookChoice
+              Name = "Book_Gen"
+              MoveScaled(0,0,13.3333,5.4444)
+              Font = Font["Cantarell,Bold,-1"]
+              Background = &H63452C&
+              Foreground = &H0EFFFFFF&
+              Tag = "1"
+              Text = ("Genesis")
+            }
+          }
+          { Button_hide Button
+            MoveScaled(-1,28.2222,118.6667,2.8889)
+            Background = Color.Transparent
+            Text = ("▴  BookChooser  ▴")
+            Border = False
+          }
+          { Pin_BookChooser ToggleButton
+            MoveScaled(112.1111,28.6667,3.3333,2.2222)
+            Picture = Picture["icon:/small/pin"]
+          }
+        }
+      }
+      { Main_Panel_Wrapper2 Panel
+        MoveScaled(0,31,118.7778,68.7778)
+        Arrangement = Arrange.Vertical
+        Centered = True
+        { Main_Panel_Wrapper Panel
+          MoveScaled(0,0,117.8889,67.8889)
+          Arrangement = Arrange.Horizontal
+          Centered = True
+          { Main_panel Panel
+            MoveScaled(0,0,117,66.8889)
+            { Search_Query ButtonBox
+              MoveScaled(22,57,64.5556,4.4444)
+              ToolTip = ("Type bible reference. ex: Joh 3:16-17")
+              Picture = Picture["icon:/small/find"]
+              ClearButton = True
+            }
+            { !Translation ListBox
+              MoveScaled(1,30,18,31)
+              #Public = True
+              ToolTip = ("Choose Translation")
+            }
+            { Panel1 Panel
+              MoveScaled(20,1,69.6667,56.1111)
+              { Monitor_control PictureBox
+                MoveScaled(0,0,68.7778,55.2222)
+                Picture = Picture["images/Monitor.png"]
+                Stretch = True
+              }
+              { Wallpaper PictureBox
+                MoveScaled(2.1111,2.2222,64.5556,36.3333)
+                Picture = Picture["images/vapor.jpg"]
+                Stretch = True
+              }
+              { BibRef_Label TextLabel
+                MoveScaled(2,35.2222,64.4444,3.3333)
+                Foreground = &HFFFFFF&
+                Padding = 10
+                Alignment = Align.Right
+              }
+              { TextLabel1 TextLabel
+                MoveScaled(2,2.2222,64.5556,33)
+                Foreground = Color.White
+                Padding = 24
+                Alignment = Align.Left
+              }
+              { PagerP Panel
+                MoveScaled(2.3333,41.4444,64.5556,4)
+                Arrangement = Arrange.Fill
+                Centered = True
+              }
+              { Panel3 Panel
+                MoveScaled(2,51,18,4)
+                Arrangement = Arrange.Horizontal
+                Border = Border.Plain
+                { ScriptureColor ColorButton
+                  MoveScaled(0,0,4.4444,4.4444)
+                  ToolTip = ("Set font color")
+                  Border = False
+                }
+                { Spring2 Spring
+                  MoveScaled(4,0,4,4)
+                }
+                { IncreaseScriptureFont ToolButton
+                  MoveScaled(9,0,4,4)
+                  ToolTip = ("Increase font size")
+                  Picture = Picture["icon:/small/text-bigger"]
+                }
+                { DecreaseScriptureFont ToolButton
+                  MoveScaled(13,0,4,4)
+                  ToolTip = ("Decrease font size")
+                  Picture = Picture["icon:/small/text-smaller"]
+                }
+              }
+            }
+            { Panel2 Panel
+              MoveScaled(90,57,25,4.4444)
+              Arrangement = Arrange.Horizontal
+              Border = Border.Plain
+              { AddRef ToolButton
+                MoveScaled(1,0,4,4)
+                ToolTip = ("Add search query to list")
+                Picture = Picture["icon:/small/add"]
+              }
+              { RemoveRef ToolButton
+                MoveScaled(5,0,4,4)
+                ToolTip = ("Remove selected verses from list")
+                Picture = Picture["icon:/small/remove"]
+              }
+              { ClearRef ToolButton
+                MoveScaled(8,0,4,4)
+                ToolTip = ("Clear the verselist")
+                Picture = Picture["icon:/small/clear"]
+              }
+              { Spring1 Spring
+                MoveScaled(11,0,4,4)
+              }
+              { SaveRefList ToolButton
+                MoveScaled(14,0,4,4)
+                ToolTip = ("Close verselist")
+                Picture = Picture["icon:/small/save"]
+              }
+              { OpenRef ToolButton
+                MoveScaled(19,0,4,4)
+                ToolTip = ("Open verselist")
+                Picture = Picture["icon:/small/open"]
+              }
+            }
+            { VerseListFilename TextLabel
+              MoveScaled(90,2.8889,25,3)
+            }
+            { Search_Query_Example Label
+              MoveScaled(23.2222,57.2222,39,4)
+              Mouse = Mouse.Text
+              Text = ("Joh 3:16-17")
+            }
+            { Panel4 Panel
+              MoveScaled(90,6,25.8889,51.8889)
+              { VerseList ListBox
+                MoveScaled(0,0,25,51)
+              }
+            }
+          }
+        }
+      }
+    }
+    Index = 1
+    Text = ("Alerts")
+    Picture = Picture["icon:/medium/info"]
+    { AlertPanel Panel
+      MoveScaled(0,0,117,74)
+      Arrangement = Arrange.Horizontal
+      Centered = True
+      { MainPanel Panel
+        MoveScaled(8,0,89,71)
+        Arrangement = Arrange.Vertical
+        Centered = True
+        { MessagePanel Panel
+          MoveScaled(0,0,90,71)
+          { AlertText TextArea
+            MoveScaled(0,49,62,16)
+          }
+          { AlertList ListBox
+            MoveScaled(63,0,26,66)
+          }
+          { ListTools Panel
+            MoveScaled(63,66,26,4.4444)
+            Arrangement = Arrange.Horizontal
+            Border = Border.Plain
+            { SaveAlert ToolButton
+              MoveScaled(0,0,4,4)
+              ToolTip = ("Open verselist")
+              Picture = Picture["icon:/small/ok"]
+            }
+            { AddAlert ToolButton
+              MoveScaled(5,0,4,4)
+              ToolTip = ("Add search query to list")
+              Picture = Picture["icon:/small/add"]
+            }
+            { RemoveAlert ToolButton
+              MoveScaled(11,0,4,4)
+              ToolTip = ("Remove selected verses from list")
+              Picture = Picture["icon:/small/remove"]
+            }
+            { Spring3 Spring
+              MoveScaled(17,0,4,4)
+            }
+          }
+          { AlertName ButtonBox
+            MoveScaled(0,66,62,4.4444)
+            Picture = Picture["icon:/small/clear"]
+          }
+          { Aligner Panel
+            MoveScaled(0,0,62,49)
+            Arrangement = Arrange.Fill
+          }
+          { Panel7 Panel
+            MoveScaled(0,44,18,4)
+            Arrangement = Arrange.Horizontal
+            Border = Border.Plain
+            { AlertColor ColorButton
+              MoveScaled(0,0,4.4444,4.4444)
+              ToolTip = ("Set font color")
+              Border = False
+            }
+            { Spring4 Spring
+              MoveScaled(4,0,4,4)
+            }
+            { IncreaseAlertFont ToolButton
+              MoveScaled(9,0,4,4)
+              ToolTip = ("Increase font size")
+              Picture = Picture["icon:/small/text-bigger"]
+            }
+            { DecreaseAlertFont ToolButton
+              MoveScaled(13,0,4,4)
+              ToolTip = ("Decrease font size")
+              Picture = Picture["icon:/small/text-smaller"]
+            }
+          }
+          { !SyntaxHelp GridView
+            MoveScaled(1.3333,1.5556,59,33)
+            #Public = True
+            Background = &HB1000000&
+            Foreground = &HFFFFFF&
+            Border = False
+            Padding = 0
+            Header = GridView.Horizontal
+          }
+          { Alert_Example Label
+            MoveScaled(0.6667,48.7778,39,4)
+            Mouse = Mouse.Text
+            Text = ("Text to show on screen") & "..."
+          }
+          { AlertName_Example Label
+            MoveScaled(1.2222,66.2222,39,4)
+            Mouse = Mouse.Text
+            Text = ("Name for the menu") & "..."
+          }
+          { AlertHelp ToolButton
+            MoveScaled(55,36,4,4)
+            ToolTip = ("Get syntax help")
+            Picture = Picture["icon:/small/info"]
+          }
+        }
+      }
+    }
+    Index = 2
+    Text = ("Settings")
+    Picture = Picture["icon:/medium/tools"]
+    { SettingsPanel IconPanel
+      MoveScaled(0,0,117,72)
+      Count = 2
+      Index = 0
+      Text = ("Scripture")
+      Picture = Picture["icon:/large/book"]
+      { SSTPanel Frame
+        MoveScaled(4,31,35,29)
+        Text = ("♡ Standard Translation ♡")
+        { STName TextLabel
+          MoveScaled(7,2,27,6)
+          Font = Font["Bold,-1"]
+          Alignment = Align.BottomLeft
+        }
+        { STPicture PictureBox
+          MoveScaled(0,2,7,8)
+          Picture = Picture["icon:/huge/book"]
+        }
+        { STAbout TextArea
+          MoveScaled(1,9,33,16)
+          Font = Font["-2"]
+          Wrap = True
+          Border = False
+        }
+        { STCopy TextBox
+          MoveScaled(1,25,32,3)
+          Font = Font["Bold,-3"]
+          Border = False
+        }
+      }
+      { STPanel Panel
+        MoveScaled(79,32,18,28)
+        { !Translation_Settings ListBox
+          MoveScaled(0,0,18,23)
+          #Public = True
+          ToolTip = ("Choose Translation")
+        }
+        { STButtons Panel
+          MoveScaled(0,22.8889,18,4.4444)
+          Arrangement = Arrange.Horizontal
+          Border = Border.Plain
+          { FavoriteTranslation ToolButton
+            MoveScaled(1,0,4,4)
+            ToolTip = ("Set as standard translation")
+            Picture = Picture["icon:/small/love"]
+          }
+          { Spring5 Spring
+            MoveScaled(6,0,4,4)
+          }
+          { AddTranslation ToolButton
+            MoveScaled(10,0,4,4)
+            ToolTip = ("Add new translation to list")
+            Picture = Picture["icon:/small/add"]
+          }
+          { RemoveTranslation ToolButton
+            MoveScaled(13,0,4,4)
+            ToolTip = ("Remove Selected translation from list")
+            Picture = Picture["icon:/small/remove"]
+          }
+        }
+      }
+      { SFPanel Panel
+        MoveScaled(4,2,93,24)
+        { Label1 Label
+          MoveScaled(0,0,29,3)
+          Text = ("Scripture font: ")
+        }
+        { Scripture_FontName TextLabel
+          MoveScaled(0,3,93,21)
+          Font = Font["Bookerly,Bold,43"]
+          Background = Color.Background
+          Foreground = Color.Foreground
+          Expand = True
+          Padding = 10
+          Border = Border.Raised
+          Text = ("Bookerly,43")
+          Alignment = Align.Center
+        }
+      }
+      { TIPanel Frame
+        MoveScaled(41,31,36,29)
+        Text = ("Info")
+        { TIName TextLabel
+          MoveScaled(7,2,28,6)
+          Font = Font["Bold,-1"]
+          Alignment = Align.BottomLeft
+        }
+        { TIPicture PictureBox
+          MoveScaled(0,2,7,8)
+          Picture = Picture["icon:/huge/file"]
+        }
+        { TIAbout TextArea
+          MoveScaled(1,9,34,16)
+          Font = Font["-2"]
+          Wrap = True
+          Border = False
+        }
+        { TICopy TextBox
+          MoveScaled(1,25,34,3)
+          Font = Font["Bold,-3"]
+          Border = False
+        }
+      }
+      { MarginPanel HPanel
+        MoveScaled(3,27.1111,96,4)
+        { MarginLabel Label
+          MoveScaled(1,0,12,4)
+          Text = ("Text Margin")
+        }
+        { MarginSlider SliderBox
+          MoveScaled(41,0,43,4)
+          Expand = True
+        }
+      }
+      Index = 1
+      Text = ("Alerts")
+      Picture = Picture["icon:/large/info"]
+      { AFPanel Panel
+        MoveScaled(4,2,93,24)
+        { Label2 Label
+          MoveScaled(0,0,29,3)
+          Text = ("Alert font:")
+        }
+        { Alert_FontName TextLabel
+          MoveScaled(0,3,93,21)
+          Font = Font["Bookerly,Bold,43"]
+          Background = Color.Background
+          Foreground = Color.Foreground
+          Expand = True
+          Padding = 10
+          Border = Border.Raised
+          Text = ("Bookerly,43")
+          Alignment = Align.Center
+        }
+      }
+      { alertMarginPanel Panel
+        MoveScaled(3,27,96,4)
+        Arrangement = Arrange.Horizontal
+        { MarginLabel2 Label
+          MoveScaled(1,0,12,4)
+          Text = ("Text Margin")
+        }
+        { alertMarginSlider SliderBox
+          MoveScaled(52,0,43,4)
+          Expand = True
+        }
+      }
+      Index = 0
+    }
+    Index = 3
+    Text = ("About")
+    Picture = Picture["icon:/medium/help"]
+    { AboutPanelWrapperV Panel
+      MoveScaled(0,0,96,55)
+      Arrangement = Arrange.Vertical
+      Centered = True
+      { AboutPanelWrapperH Panel
+        MoveScaled(0,0,95,55)
+        Arrangement = Arrange.Horizontal
+        Centered = True
+        { AboutPanel Panel
+          MoveScaled(0,0,78,54)
+          { Logo PictureBox
+            MoveScaled(32,4,14.2222,14.2222)
+            Picture = Picture["LumiSword_256.png"]
+            Stretch = True
+          }
+          { AboutLabel TextLabel
+            MoveScaled(11,28,56,10)
+            Alignment = Align.Top
+          }
+          { LicenseBox Panel
+            MoveScaled(11.1111,37,55.5556,3.8889)
+            Arrangement = Arrange.Horizontal
+            Centered = True
+            { LicenseLabel1 TextLabel
+              MoveScaled(0,0,18,3.8889)
+              AutoResize = True
+              Text = ("This software is licensed under the:&nbsp;")
+              Alignment = Align.Left
+            }
+            { LicenseLabel2 URLLabel
+              MoveScaled(34,0,8,3.8889)
+              Alignment = Align.Left
+            }
+          }
+          { Contribution ScrollView
+            MoveScaled(11.1111,42,55.5556,9)
+            Background = Color.TextBackground
+          }
+          { AboutProgramName TextLabel
+            MoveScaled(11,19,56,5)
+            #Translate = False
+            Text = "LumiSword"
+            Alignment = Align.Top
+            Wrap = False
+          }
+          { AboutVersion TextLabel
+            MoveScaled(11.1111,23,55.5556,4)
+            Alignment = Align.Center
+          }
+        }
+      }
+    }
+    Index = 0
+  }
+  { !SwitchAlerts ToggleButton
+    MoveScaled(102,93.8889,14,4)
+    #Public = True
+    Text = ("Offline")
+    Picture = Picture["icon:/small/screen"]
+  }
+}

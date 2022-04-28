@@ -1,0 +1,124 @@
+' Gambas class file
+
+Export 
+
+Event Changed(Alignment As Integer)
+Public Alignment As Integer
+
+ Private quota As Float
+ Private font_ratio As Float
+
+Public Sub Form_Open()
+  
+
+  If Application.DarkTheme Then
+    Monitor.Picture = Picture.Load("images/Monitor_dark.svg")
+  Else 
+    Monitor.Picture = Picture.Load("images/Monitor.svg")
+  Endif
+  Wallpaper.Picture = Picture.Load("images/vapor.jpg")
+  
+  
+End 
+
+Public Sub MainPanel_Arrange()  
+  MainPanel.W = Me.W
+  MainPanel.H = Me.H
+  quota = Me.W / Monitor.W
+   
+  Monitor.W = Monitor.W * quota
+  Monitor.H = Monitor.H * quota
+  Wallpaper.Move(Wallpaper.X * quota, Wallpaper.Y * quota, Wallpaper.W * quota, Wallpaper.H * quota)
+  
+  AlignTL.Move(AlignTL.X * quota, AlignTL.Y * quota, AlignTL.W * quota, AlignTL.H * quota)
+  AlignT.Move(AlignT.X * quota, AlignT.Y * quota, AlignT.W * quota, AlignT.H * quota)
+  AlignTR.Move(AlignTR.X * quota, AlignTR.Y * quota, AlignTR.W * quota, AlignTR.H * quota)  
+  
+  AlignL.Move(AlignL.X * quota, AlignL.Y * quota, AlignL.W * quota, AlignL.H * quota)
+  AlignC.Move(AlignC.X * quota, AlignC.Y * quota, AlignC.W * quota, AlignC.H * quota)
+  AlignR.Move(AlignR.X * quota, AlignR.Y * quota, AlignR.W * quota, AlignR.H * quota)
+  
+  AlignBL.Move(AlignBL.X * quota, AlignBL.Y * quota, AlignBL.W * quota, AlignBL.H * quota)
+  AlignB.Move(AlignB.X * quota, AlignB.Y * quota, AlignB.W * quota, AlignB.H * quota)
+  AlignBR.Move(AlignBR.X * quota, AlignBR.Y * quota, AlignBR.W * quota, AlignBR.H * quota) 
+ 
+  PreviewText.Move(PreviewText.X * quota, PreviewText.Y * quota, PreviewText.W * quota, PreviewText.H * quota)
+  
+  If Application.DarkTheme Then
+    Monitor.Picture = Picture.Load("images/Monitor_dark.svg")
+  Else 
+    Monitor.Picture = Picture.Load("images/Monitor.svg")
+  Endif
+   Wallpaper.Picture = Picture.Load("images/vapor.jpg")
+End
+
+
+
+
+Public Sub SetFont(myfont As Font)
+  Dim myFontsize As Integer
+  PreviewText.Font = myfont
+  'Print "Full-Size: " & myfont.Size
+  font_ratio = Round(Screen.W / Wallpaper.W)
+  'Print "Font-ratio: " & font_ratio
+  myFontsize = myFont.Size / font_ratio
+  'Print "Font-size: " & myFontsize
+  If myFontsize < 7 Then
+    PreviewText.Font.Size = 7
+  Else If myFontsize > 30 Then 
+    PreviewText.Font.Size = 30
+  Else 
+    PreviewText.Font.Size = myFontsize
+  Endif
+    PreviewText.Padding = FMain.alertMargin / font_ratio
+  PreviewText.Refresh
+End
+
+
+Public Sub AlignButtons_Click()
+
+  Dim clicked As Button = Last
+  
+ ' Print clicked.Tag
+  
+  Select Case clicked.Tag
+  Case "TL"
+    Alignment = Align.TopLeft
+  Case "T" 
+    Alignment = Align.Top
+  Case "TR"
+    Alignment = Align.TopRight
+  Case "L"
+    Alignment = Align.Left
+  Case "C" 
+    Alignment = Align.Center
+  Case "R"
+    Alignment = Align.Right
+  Case "BL"
+    Alignment = Align.BottomLeft
+  Case "B" 
+    Alignment = Align.Bottom
+  Case "BR"
+    Alignment = Align.BottomRight
+End Select
+
+ ' Print Alignment
+  
+  PreviewText.Alignment = Alignment
+  Raise Changed(Alignment)
+  FMain.SetFocus
+End
+
+Public Sub AlignButtons_Enter()
+  
+    Dim clicked As Button = Last
+    clicked.Background = Color.SetAlpha(Color.White, 200)
+End
+
+
+Public Sub AlignButtons_Leave()
+  
+  Dim clicked As Button = Last
+  clicked.Background = Color.Transparent
+  
+End

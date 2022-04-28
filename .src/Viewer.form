@@ -1,0 +1,40 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,64,53)
+  { !BibleRef TextLabel
+    MoveScaled(4,46,57,7)
+    #Public = True
+    Foreground = &HFFFFFF&
+    Alignment = Align.BottomRight
+  }
+  { !BibleText TextLabel
+    MoveScaled(11,4,48,43)
+    #Public = True
+    Foreground = &HFFFFFF&
+    Padding = 30
+    Alignment = Align.Left
+  }
+  { !AlertText TextLabel
+    MoveScaled(5,4,48,43)
+    #Public = True
+    Foreground = &HFFFFFF&
+    Padding = 30
+    Alignment = Align.Left
+  }
+  { !WaylandWarning Panel
+    MoveScaled(2,2,59,51)
+    #Public = True
+    Centered = True
+    { TextLabel1 TextLabel
+      MoveScaled(6,13,47,25)
+      Text = ("<H1>Wayland Detected</h1>\n<p>LumiSword does not have the ability to automaticly move the window to the second monitor on wayland. </p>\n<p>Move this window to the desired monitor and then press the \"<b>Set up Viewer</b>\" button</p>")
+      Alignment = Align.Center
+    }
+    { LoadViewer Button
+      MoveScaled(5,34,50,14)
+      Font = Font["Comfortaa,+4"]
+      Text = ("Set up Viewer")
+    }
+  }
+}
